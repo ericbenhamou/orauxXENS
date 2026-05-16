@@ -394,6 +394,10 @@ button {
   grid-column: span 5;
 }
 
+.span-12 {
+  grid-column: 1 / -1;
+}
+
 .panel,
 .hero-card,
 .focus-card,
@@ -563,6 +567,100 @@ button {
 .mini-grid {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   margin-bottom: 18px;
+}
+
+.qcm-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.qcm-summary {
+  display: grid;
+  gap: 4px;
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: 16px;
+  background: var(--green-soft);
+}
+
+.qcm-summary span {
+  color: var(--muted);
+}
+
+.qcm-form {
+  display: grid;
+  gap: 16px;
+}
+
+.qcm-question {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.qcm-question-head {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.choice-list {
+  display: grid;
+  gap: 10px;
+}
+
+.choice-option {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.choice-option input {
+  width: 18px;
+  min-height: 18px;
+  margin: 2px 0 0;
+}
+
+.choice-option.correct {
+  border-color: rgba(15, 118, 110, 0.25);
+  background: var(--green-soft);
+}
+
+.choice-option.incorrect {
+  border-color: rgba(180, 35, 24, 0.2);
+  background: var(--red-soft);
+}
+
+.qcm-explanation {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+}
+
+.qcm-explanation.success {
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  background: var(--green-soft);
+}
+
+.qcm-explanation.warning {
+  border: 1px solid rgba(161, 98, 7, 0.18);
+  background: var(--amber-soft);
+}
+
+.qcm-explanation small {
+  color: var(--muted);
 }
 
 .mini-card strong,
@@ -813,7 +911,8 @@ a:focus-visible {
   }
 
   .span-7,
-  .span-5 {
+  .span-5,
+  .span-12 {
     grid-column: 1 / -1;
   }
 }
@@ -830,6 +929,10 @@ a:focus-visible {
   .compare-metrics,
   .memory-row {
     grid-template-columns: 1fr;
+  }
+
+  .qcm-toolbar {
+    display: grid;
   }
 
   .button-row,

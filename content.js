@@ -24,6 +24,7 @@ export const NAV_ITEMS = [
   { id: "dashboard", label: "Tableau de bord" },
   { id: "cours", label: "Zone de cours" },
   { id: "glossaire", label: "Glossaire" },
+  { id: "qcm", label: "QCM classiques" },
   { id: "oraux", label: "Oraux blancs" },
   { id: "memoire", label: "Mémoire des erreurs" },
   { id: "resultats", label: "Résultats" },
@@ -577,6 +578,380 @@ export const GLOSSARY = [
     trap:
       "Oublier le bon pas ou la bonne normalisation.",
     refs: ["Francinou Analyse 2"],
+  },
+];
+
+export const QCM_QUESTIONS = [
+  {
+    id: "qcm-symetrique-orthobase",
+    category: "Algèbre linéaire",
+    prompt:
+      "Quelle affirmation est correcte pour une matrice réelle symétrique ?",
+    choices: [
+      {
+        id: "a",
+        text: "Elle est toujours diagonalisable dans une base orthonormée réelle.",
+      },
+      { id: "b", text: "Elle est toujours nilpotente." },
+      { id: "c", text: "Elle n'est diagonalisable que si son déterminant est non nul." },
+      { id: "d", text: "Elle est toujours semblable à une matrice triangulaire non diagonale." },
+    ],
+    correctChoiceId: "a",
+    explanation:
+      "C'est le théorème spectral réel : une matrice symétrique réelle est diagonalisable dans une base orthonormée, avec des valeurs propres réelles.",
+    refs: ["Francinou Algèbre 3", "Zone de cours : Espaces euclidiens."],
+  },
+  {
+    id: "qcm-cayley-hamilton",
+    category: "Algèbre linéaire",
+    prompt: "Que dit précisément le théorème de Cayley-Hamilton ?",
+    choices: [
+      { id: "a", text: "Toute matrice est semblable à sa transposée." },
+      {
+        id: "b",
+        text: "Toute matrice annule son polynôme caractéristique.",
+      },
+      { id: "c", text: "Toute matrice diagonalisable a ses valeurs propres simples." },
+      { id: "d", text: "Toute matrice carrée est inversible." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "Si χA est le polynôme caractéristique de A, alors χA(A)=0. C'est un pivot classique pour produire des relations polynomiales en A.",
+    refs: ["Francinou Algèbre 1", "Zone de cours : Réduction."],
+  },
+  {
+    id: "qcm-rang-noyau",
+    category: "Algèbre linéaire",
+    prompt:
+      "Pour un endomorphisme u d'un espace vectoriel E de dimension finie n, quelle relation est vraie ?",
+    choices: [
+      { id: "a", text: "rg(u) = dim Ker(u)." },
+      { id: "b", text: "rg(u) + dim Ker(u) = n." },
+      { id: "c", text: "rg(u) = n pour tout u." },
+      { id: "d", text: "dim Ker(u) = 0 pour tout u non nul." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "C'est la formule du rang : dimension du noyau plus dimension de l'image égale dimension de l'espace de départ.",
+    refs: ["Francinou Algèbre 1", "Zone de cours : Réduction."],
+  },
+  {
+    id: "qcm-similaire-invariants",
+    category: "Algèbre linéaire",
+    prompt: "Si deux matrices A et B sont semblables, que peut-on affirmer ?",
+    choices: [
+      { id: "a", text: "Elles ont toujours les mêmes coefficients diagonaux." },
+      {
+        id: "b",
+        text: "Elles ont le même polynôme caractéristique, donc la même trace et le même déterminant.",
+      },
+      { id: "c", text: "Elles sont forcément égales." },
+      { id: "d", text: "L'une est forcément la transposée de l'autre." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "La similitude conserve le polynôme caractéristique, donc les invariants qui s'y lisent comme la trace et le déterminant.",
+    refs: ["Francinou Algèbre 1", "ENS Ulm 2019, planche 3."],
+  },
+  {
+    id: "qcm-projecteur-orthogonal",
+    category: "Algèbre linéaire",
+    prompt: "Comment reconnaître un projecteur orthogonal p ?",
+    choices: [
+      { id: "a", text: "p² = 0 et p = -p*." },
+      {
+        id: "b",
+        text: "p² = p et p est auto-adjoint.",
+      },
+      { id: "c", text: "p³ = p et tr(p) = 0." },
+      { id: "d", text: "p est inversible et orthogonale." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "En espace euclidien, p est le projecteur orthogonal sur F si et seulement si p²=p et p*=p.",
+    refs: ["Francinou Algèbre 3, projecteurs orthogonaux."],
+  },
+  {
+    id: "qcm-normes-equivalentes",
+    category: "Algèbre linéaire",
+    prompt:
+      "Dans un espace vectoriel réel de dimension finie, que sait-on sur les normes ?",
+    choices: [
+      { id: "a", text: "Elles sont toutes égales." },
+      {
+        id: "b",
+        text: "Elles sont toutes équivalentes.",
+      },
+      { id: "c", text: "Seules les normes euclidiennes sont équivalentes." },
+      { id: "d", text: "Elles ne sont équivalentes que si l'espace est de dimension 2." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "En dimension finie, toutes les normes définissent la même topologie. C'est un fait de base qu'il faut mobiliser vite à l'oral.",
+    refs: ["Cours de base d'algèbre linéaire", "Zone de cours : Espaces euclidiens."],
+  },
+  {
+    id: "qcm-adjoint-image",
+    category: "Algèbre linéaire",
+    prompt:
+      "Pour un endomorphisme u d'un espace euclidien, quelle identité est correcte ?",
+    choices: [
+      { id: "a", text: "Ker(u*) = Ker(u)." },
+      {
+        id: "b",
+        text: "Ker(u*) = Im(u)⊥.",
+      },
+      { id: "c", text: "Im(u*) = Im(u)." },
+      { id: "d", text: "Ker(u) = Im(u)." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "C'est une identité fondamentale : le noyau de l'adjoint est l'orthogonal de l'image. Elle permet de nombreux changements de point de vue géométriques.",
+    refs: ["Francinou Algèbre 3", "Zone de cours : Espaces euclidiens."],
+  },
+  {
+    id: "qcm-groupe-prime",
+    category: "Algèbre générale",
+    prompt: "Quelle propriété a tout groupe fini d'ordre premier p ?",
+    choices: [
+      { id: "a", text: "Il est trivial." },
+      {
+        id: "b",
+        text: "Il est cyclique.",
+      },
+      { id: "c", text: "Il est isomorphe à Sp." },
+      { id: "d", text: "Il n'a aucun sous-groupe non trivial mais n'est pas cyclique." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "Par le théorème de Lagrange, tout élément non neutre engendre un sous-groupe d'ordre p, donc le groupe tout entier.",
+    refs: ["Francinou Algèbre 1, théorie des groupes."],
+  },
+  {
+    id: "qcm-finite-subgroup-cstar",
+    category: "Algèbre générale",
+    prompt: "Quel énoncé est vrai pour un sous-groupe fini de C* ?",
+    choices: [
+      { id: "a", text: "Il est toujours d'ordre pair." },
+      {
+        id: "b",
+        text: "Il est cyclique.",
+      },
+      { id: "c", text: "Il est toujours isomorphe à Z²." },
+      { id: "d", text: "Il contient forcément i." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "Un sous-groupe fini de C* est formé de racines de l'unité, donc il est cyclique. C'est un résultat très classique de structure.",
+    refs: ["Francinou Algèbre 1", "Zone de cours : Groupes."],
+  },
+  {
+    id: "qcm-polynome-racines",
+    category: "Algèbre générale",
+    prompt:
+      "Que peut-on dire d'un polynôme non nul de degré n sur un corps, s'il admet n+1 racines distinctes ?",
+    choices: [
+      { id: "a", text: "C'est possible si le corps est infini." },
+      {
+        id: "b",
+        text: "C'est impossible : il serait alors nécessairement nul.",
+      },
+      { id: "c", text: "Il est alors scindé à racines simples." },
+      { id: "d", text: "Il est divisible par X^(n+1)." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "Un polynôme non nul de degré n ne peut pas avoir plus de n racines distinctes. C'est un réflexe de base indispensable.",
+    refs: ["Francinou Algèbre 1, polynômes."],
+  },
+  {
+    id: "qcm-zmodp",
+    category: "Algèbre générale",
+    prompt: "Si p est premier, quelle affirmation sur Z/pZ est juste ?",
+    choices: [
+      { id: "a", text: "Tout élément non nul est nilpotent." },
+      {
+        id: "b",
+        text: "Tout élément non nul y est inversible.",
+      },
+      { id: "c", text: "L'anneau n'a que deux éléments non nuls." },
+      { id: "d", text: "Il n'existe aucun polynôme non constant sur Z/pZ." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "Z/pZ est un corps si et seulement si p est premier. Il faut savoir l'utiliser immédiatement dans les raisonnements de congruence.",
+    refs: ["Francinou Algèbre 1, arithmétique."],
+  },
+  {
+    id: "qcm-suite-monotone-bornee",
+    category: "Analyse",
+    prompt: "Quel énoncé classique est exact pour une suite réelle monotone bornée ?",
+    choices: [
+      { id: "a", text: "Elle est stationnaire à partir d'un certain rang." },
+      {
+        id: "b",
+        text: "Elle converge.",
+      },
+      { id: "c", text: "Elle diverge mais admet des valeurs d'adhérence." },
+      { id: "d", text: "Elle est forcément géométrique." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "C'est l'un des tout premiers réflexes d'analyse : monotonicité plus bornes donne convergence.",
+    refs: ["Francinou Analyse 1, suites réelles."],
+  },
+  {
+    id: "qcm-weierstrass-compact",
+    category: "Analyse",
+    prompt:
+      "Si f est continue sur un segment [a,b], quel résultat doit être connu sans hésitation ?",
+    choices: [
+      { id: "a", text: "f est dérivable sur [a,b]." },
+      {
+        id: "b",
+        text: "f est bornée et atteint son minimum et son maximum.",
+      },
+      { id: "c", text: "f est affine." },
+      { id: "d", text: "f possède une primitive polynomiale." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "Sur un compact, une fonction continue est bornée et atteint ses bornes. C'est le théorème de Weierstrass.",
+    refs: ["Francinou Analyse 1, topologie / fonctions réelles."],
+  },
+  {
+    id: "qcm-derivees-partielles",
+    category: "Analyse",
+    prompt:
+      "Laquelle de ces affirmations est correcte en plusieurs variables ?",
+    choices: [
+      {
+        id: "a",
+        text: "L'existence des dérivées partielles en un point implique toujours la différentiabilité en ce point.",
+      },
+      {
+        id: "b",
+        text: "La différentiabilité en un point implique la continuité en ce point.",
+      },
+      { id: "c", text: "La continuité implique toujours la différentiabilité." },
+      { id: "d", text: "La dérivabilité partielle impose l'existence d'une hessienne." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "Le jury 2025 insiste dessus : différentiabilité implique continuité, mais l'existence des dérivées partielles seule ne suffit pas.",
+    refs: ["Rapport ULSR 2025", "Zone de cours : Calcul différentiel."],
+  },
+  {
+    id: "qcm-serie-absolue",
+    category: "Analyse",
+    prompt: "Que garantit la convergence absolue d'une série numérique réelle ou complexe ?",
+    choices: [
+      { id: "a", text: "La divergence logarithmique." },
+      {
+        id: "b",
+        text: "La convergence de la série elle-même.",
+      },
+      { id: "c", text: "La positivité des termes à partir d'un certain rang." },
+      { id: "d", text: "L'existence d'une somme rationnelle." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "Convergence absolue implique convergence. Ce fait sert en permanence pour sécuriser permutations et majorations.",
+    refs: ["Francinou Analyse 1, séries numériques."],
+  },
+  {
+    id: "qcm-limite-uniforme-continue",
+    category: "Analyse",
+    prompt:
+      "Si une suite de fonctions continues sur [a,b] converge uniformément vers f, que peut-on conclure ?",
+    choices: [
+      { id: "a", text: "f est forcément dérivable." },
+      {
+        id: "b",
+        text: "f est continue sur [a,b].",
+      },
+      { id: "c", text: "La convergence est forcément normale." },
+      { id: "d", text: "Les fonctions sont constantes à partir d'un certain rang." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "La continuité passe à la limite sous convergence uniforme. C'est un résultat standard à connaître et à savoir citer avec son hypothèse exacte.",
+    refs: ["Francinou Analyse 2, suites et séries de fonctions."],
+  },
+  {
+    id: "qcm-rayon-derivation",
+    category: "Analyse",
+    prompt:
+      "Pour une série entière Σ an z^n de rayon de convergence R, que vaut le rayon de sa série dérivée ?",
+    choices: [
+      { id: "a", text: "0." },
+      {
+        id: "b",
+        text: "Le même rayon R.",
+      },
+      { id: "c", text: "Toujours +∞." },
+      { id: "d", text: "Toujours R/2." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "La dérivation terme à terme d'une série entière conserve le rayon de convergence. C'est un classique de manipulation sûre des séries entières.",
+    refs: ["Francinou Analyse 2, séries entières."],
+  },
+  {
+    id: "qcm-riemann-lebesgue",
+    category: "Analyse",
+    prompt: "Que dit le lemme de Riemann-Lebesgue dans sa forme de base ?",
+    choices: [
+      { id: "a", text: "Toute intégrale converge absolument." },
+      {
+        id: "b",
+        text: "Si f est intégrable sur un segment, alors ses coefficients oscillants tendent vers 0.",
+      },
+      { id: "c", text: "Toute fonction continue est lipschitzienne." },
+      { id: "d", text: "Toute série alternée converge uniformément." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "C'est l'outil naturel pour montrer qu'une oscillation rapide finit par s'annuler à l'intégration.",
+    refs: ["Francinou Analyse 2, intégration."],
+  },
+  {
+    id: "qcm-esperance-lineaire",
+    category: "Probabilités",
+    prompt:
+      "Quelle propriété de l'espérance reste vraie sans hypothèse d'indépendance ?",
+    choices: [
+      {
+        id: "a",
+        text: "E(X+Y)=E(X)+E(Y).",
+      },
+      { id: "b", text: "E(XY)=E(X)E(Y)." },
+      { id: "c", text: "Var(X+Y)=Var(X)+Var(Y)." },
+      { id: "d", text: "P(X=Y)=P(X)P(Y)." },
+    ],
+    correctChoiceId: "a",
+    explanation:
+      "La linéarité de l'espérance est universelle, alors que les formules multiplicatives demandent en général de l'indépendance.",
+    refs: ["Probabilités classiques", "Zone de cours : Probabilités."],
+  },
+  {
+    id: "qcm-variance-independance",
+    category: "Probabilités",
+    prompt:
+      "Pour des variables aléatoires indépendantes X et Y de variance finie, quelle formule est correcte ?",
+    choices: [
+      { id: "a", text: "Var(X+Y)=Var(X)Var(Y)." },
+      {
+        id: "b",
+        text: "Var(X+Y)=Var(X)+Var(Y).",
+      },
+      { id: "c", text: "Var(X+Y)=Var(X)-Var(Y)." },
+      { id: "d", text: "Var(X+Y)=0." },
+    ],
+    correctChoiceId: "b",
+    explanation:
+      "L'indépendance annule le terme de covariance, d'où l'additivité des variances pour la somme.",
+    refs: ["Probabilités classiques", "Zone de cours : Probabilités."],
   },
 ];
 

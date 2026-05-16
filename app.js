@@ -6,6 +6,7 @@ import {
   JURY_ALERTS,
   NAV_ITEMS,
   PROFILES,
+  QCM_QUESTIONS,
   RESOURCE_LINKS,
 } from "./content.js";
 
@@ -39,6 +40,9 @@ function createDefaultProfileData() {
     completedCourses: [],
     starredGlossary: [],
     results: [],
+    qcmHistory: [],
+    qcmLastReport: null,
+    qcmMistakes: [],
     noteDrafts: {},
   };
 }
@@ -51,6 +55,7 @@ function loadState() {
     selectedExerciseId: EXERCISES[0].id,
     glossaryQuery: "",
     glossaryCategory: "all",
+    qcmCategory: "all",
     exerciseTheme: "all",
     exerciseDifficulty: "all",
     exerciseQuery: "",
@@ -172,6 +177,7 @@ function renderMain() {
     dashboard: "Tableau de bord",
     cours: "Zone de cours",
     glossaire: "Glossaire",
+    qcm: "QCM classiques",
     oraux: "Oraux blancs",
     memoire: "Mémoire des erreurs",
     resultats: "Résultats",
@@ -182,6 +188,7 @@ function renderMain() {
     dashboard: "Vue prioritaire de la préparation, par profil.",
     cours: "Cours structurés pour fixer les réflexes qui tombent vraiment à l'oral.",
     glossaire: "Définitions propres, usage à l'oral et pièges associés.",
+    qcm: "Résultats de cours à reconnaître vite, proprement, sans hésitation.",
     oraux: "Corpus d'exercices classiques, filtrable et annotable.",
     memoire: "Ce qu'il ne faut plus rater deux fois.",
     resultats: "Suivi des progrès, comparaison Raphael / Henry et points faibles.",
@@ -216,6 +223,8 @@ function renderRoute(currentRoute) {
       return renderCoursesPage();
     case "glossaire":
       return renderGlossaryPage();
+    case "qcm":
+      return renderQcmPage();
     case "oraux":
       return renderOralsPage();
     case "memoire":
@@ -298,9 +307,45 @@ function getErrorResults(profileId = state.selectedProfileId) {
     .sort((a, b) => b.timestamp - a.timestamp);
 }
 
+function getQcmQuestions(category = state.qcmCategory) {
+  return QCM_QUESTIONS.filter((question) => category === "all" || question.category === category);
+}
+
+function getQcmLastReport(profileId = state.selectedProfileId) {
+  return getProfileData(profileId).qcmLastReport;
+}
+
+function getQcmStatsForProfile(profileId = state.selectedProfileId) {
+  const history = getProfileData(profileId).qcmHistory;
+  if (!history.length) {
+    return {
+      attempts: 0,
+      averagePct: 0,
+      bestPct: 0,
+      totalQuestionsSeen: 0,
+      lastScoreLabel: "Aucun QCM",
+    };
+  }
+
+  const percentages = history.map((entry) => (entry.total ? Math.round((entry.score / entry.total) * 100) : 0));
+  const last = history[history.length - 1];
+  return {
+    attempts: history.length,
+    averagePct: Math.round(percentages.reduce((sum, value) => sum + value, 0) / percentages.length),
+    bestPct: Math.max(...percentages),
+    totalQuestionsSeen: history.reduce((sum, entry) => sum + entry.total, 0),
+    lastScoreLabel: `${last.score}/${last.total}`,
+  };
+}
+
+function getQcmMistakes(profileId = state.selectedProfileId) {
+  return [...getProfileData(profileId).qcmMistakes].sort((a, b) => b.timestamp - a.timestamp);
+}
+
 function renderDashboardPage() {
   const profile = getProfileMeta();
   const stats = getStatsForProfile();
+  const qcmStats = getQcmStatsForProfile();
   const weakThemes = getWeakThemes();
   const strongThemes = getStrongThemes();
   const recent = getRecentResults();
@@ -316,6 +361,9 @@ function renderDashboardPage() {
         <div class="button-row">
           <button class="button primary" type="button" data-action="go-route" data-route="oraux">
             Ouvrir l'oral du jour
+          </button>
+          <button class="button secondary" type="button" data-action="go-route" data-route="qcm">
+            Lancer un QCM de cours
           </button>
           <button class="button secondary" type="button" data-action="go-route" data-route="memoire">
             Relire mes erreurs
@@ -338,6 +386,8 @@ function renderDashboardPage() {
       ${renderMetric("Réussites", String(stats.successes))}
       ${renderMetric("Erreurs mémorisées", String(stats.errors))}
       ${renderMetric("Cours revus", `${stats.completedCourses}/${COURSE_MODULES.length}`)}
+      ${renderMetric("QCM corrigés", String(qcmStats.attempts))}
+      ${renderMetric("Dernier QCM", qcmStats.lastScoreLabel)}
     </section>
 
     <section class="content-grid">
@@ -364,6 +414,32 @@ function renderDashboardPage() {
                 .join("")
             : renderEmpty("Aucune faiblesse enregistrée pour l'instant. Lance un oral blanc pour commencer le suivi.")
         }
+      </article>
+
+      <article class="panel span-5">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Récitation active</p>
+            <h2>QCM de résultats classiques</h2>
+          </div>
+        </div>
+        <div class="stack-list">
+          <div class="mini-card">
+            <strong>Dernier score</strong>
+            <p>${qcmStats.lastScoreLabel}</p>
+          </div>
+          <div class="mini-card">
+            <strong>Moyenne</strong>
+            <p>${qcmStats.attempts ? `${qcmStats.averagePct}%` : "Pas encore de tentative"}</p>
+          </div>
+          <div class="mini-card">
+            <strong>Meilleur score</strong>
+            <p>${qcmStats.attempts ? `${qcmStats.bestPct}%` : "—"}</p>
+          </div>
+          <button class="button secondary wide" type="button" data-action="go-route" data-route="qcm">
+            Ouvrir le QCM
+          </button>
+        </div>
       </article>
 
       <article class="panel span-5">
@@ -659,6 +735,147 @@ function renderGlossaryPage() {
   `;
 }
 
+function renderQcmPage() {
+  const categories = ["all", ...new Set(QCM_QUESTIONS.map((item) => item.category))];
+  const questions = getQcmQuestions();
+  const qcmStats = getQcmStatsForProfile();
+  const lastReport = getQcmLastReport();
+  const correctedQuestionCount = lastReport ? Object.keys(lastReport.answers).length : 0;
+
+  return `
+    <section class="content-grid">
+      <article class="panel span-5">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">QCM de socle</p>
+            <h2>Résultats à reconnaître vite</h2>
+          </div>
+        </div>
+        <div class="stack-list">
+          <div class="mini-card">
+            <strong>Objectif</strong>
+            <p>
+              Consolider les résultats que le jury attend comme des réflexes de cours :
+              théorème spectral, Cayley-Hamilton, Weierstrass, convergence uniforme,
+              espérance, variance, structure de groupe.
+            </p>
+          </div>
+          <div class="mini-card">
+            <strong>Historique</strong>
+            <p>${qcmStats.attempts} QCM corrigés · moyenne ${qcmStats.attempts ? `${qcmStats.averagePct}%` : "—"} · meilleur score ${qcmStats.attempts ? `${qcmStats.bestPct}%` : "—"}</p>
+          </div>
+          <div class="mini-card">
+            <strong>Dernier passage</strong>
+            <p>${qcmStats.lastScoreLabel}</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel span-7">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Filtre</p>
+            <h2>Par famille de résultats</h2>
+          </div>
+        </div>
+        <div class="chip-grid">
+          ${categories
+            .map(
+              (category) => `
+                <button
+                  class="chip-button ${state.qcmCategory === category ? "active" : ""}"
+                  type="button"
+                  data-action="set-qcm-category"
+                  data-category="${category}"
+                >
+                  ${category === "all" ? "Tout le socle" : category}
+                </button>
+              `,
+            )
+            .join("")}
+        </div>
+        <div class="qcm-toolbar">
+          <span>${questions.length} questions affichées</span>
+          <div class="button-row">
+            <button class="button primary" type="button" data-action="submit-qcm">
+              Corriger ce QCM
+            </button>
+            <button class="button secondary" type="button" data-action="reset-qcm-report">
+              Réinitialiser l'affichage
+            </button>
+          </div>
+        </div>
+        ${
+          lastReport
+            ? `
+              <div class="qcm-summary">
+                <strong>Score affiché : ${lastReport.score}/${lastReport.total}</strong>
+                <span>${correctedQuestionCount} réponse(s) corrigée(s) · ${formatDate(lastReport.timestamp)}</span>
+              </div>
+            `
+            : ""
+        }
+      </article>
+
+      <article class="panel span-12">
+        <form id="qcm-form" class="qcm-form">
+          ${questions
+            .map((question, index) => {
+              const lastAnswer = lastReport?.answers?.[question.id] || null;
+              return `
+                <section class="qcm-question">
+                  <div class="qcm-question-head">
+                    <p class="eyebrow">${question.category}</p>
+                    <h3>${index + 1}. ${question.prompt}</h3>
+                  </div>
+                  <div class="choice-list">
+                    ${question.choices
+                      .map((choice) => {
+                        const isChecked = lastAnswer?.selectedChoiceId === choice.id;
+                        const isCorrectChoice = Boolean(lastAnswer) && choice.id === question.correctChoiceId;
+                        const isWrongSelected = Boolean(lastAnswer) && isChecked && !lastAnswer.isCorrect;
+                        const className = [
+                          "choice-option",
+                          isCorrectChoice ? "correct" : "",
+                          isWrongSelected ? "incorrect" : "",
+                        ]
+                          .filter(Boolean)
+                          .join(" ");
+                        return `
+                          <label class="${className}">
+                            <input
+                              type="radio"
+                              name="qcm-${question.id}"
+                              value="${choice.id}"
+                              ${isChecked ? "checked" : ""}
+                            />
+                            <span>${choice.text}</span>
+                          </label>
+                        `;
+                      })
+                      .join("")}
+                  </div>
+                  ${
+                    lastAnswer
+                      ? `
+                        <div class="qcm-explanation ${lastAnswer.isCorrect ? "success" : "warning"}">
+                          <strong>${lastAnswer.isCorrect ? "Bonne réponse" : "À retenir"}</strong>
+                          <p>${question.explanation}</p>
+                          <small>${question.refs.join(" · ")}</small>
+                        </div>
+                      `
+                      : ""
+                  }
+                </section>
+              `;
+            })
+            .join("")}
+        </form>
+      </article>
+    </section>
+  `;
+}
+
 function renderOralsPage() {
   const activeExercise = getExerciseById();
   const profileData = getProfileData();
@@ -841,6 +1058,7 @@ function renderOralsPage() {
 
 function renderMemoryPage() {
   const errors = getErrorResults();
+  const qcmMistakes = getQcmMistakes();
   return `
     <section class="content-grid">
       <article class="panel span-5">
@@ -899,12 +1117,53 @@ function renderMemoryPage() {
             : renderEmpty("Aucune erreur mémorisée pour le moment. Le carnet se remplit automatiquement quand tu marques un passage en erreur.")
         }
       </article>
+
+      <article class="panel span-12">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">QCM de résultats</p>
+            <h2>Résultats de cours encore fragiles</h2>
+          </div>
+        </div>
+        ${
+          qcmMistakes.length
+            ? qcmMistakes
+                .map((mistake) => {
+                  const question = QCM_QUESTIONS.find((entry) => entry.id === mistake.questionId);
+                  if (!question) {
+                    return "";
+                  }
+                  const selectedText =
+                    question.choices.find((choice) => choice.id === mistake.selectedChoiceId)?.text || "Pas de réponse";
+                  const correctText =
+                    question.choices.find((choice) => choice.id === question.correctChoiceId)?.text || "";
+                  return `
+                    <div class="memory-row">
+                      <div>
+                        <strong>${question.prompt}</strong>
+                        <span>${question.category} · ${formatDate(mistake.timestamp)}</span>
+                        <p><strong>Réponse donnée :</strong> ${escapeHtml(selectedText)}</p>
+                        <p><strong>Réponse attendue :</strong> ${escapeHtml(correctText)}</p>
+                      </div>
+                      <div class="memory-actions">
+                        <button class="button secondary" type="button" data-action="go-route" data-route="qcm">
+                          Refaire le QCM
+                        </button>
+                      </div>
+                    </div>
+                  `;
+                })
+                .join("")
+            : renderEmpty("Aucune erreur QCM mémorisée. Les résultats de cours mal reconnus apparaîtront ici après correction.")
+        }
+      </article>
     </section>
   `;
 }
 
 function renderResultsPage() {
   const currentStats = getStatsForProfile();
+  const qcmStats = getQcmStatsForProfile();
   const attemptBar = EXERCISES.map((exercise) => {
     const last = getLastStatusForExercise(state.selectedProfileId, exercise.id);
     return `
@@ -922,6 +1181,8 @@ function renderResultsPage() {
       ${renderMetric("Réussites", String(currentStats.successes))}
       ${renderMetric("À reprendre", String(currentStats.review))}
       ${renderMetric("Erreurs", String(currentStats.errors))}
+      ${renderMetric("QCM corrigés", String(qcmStats.attempts))}
+      ${renderMetric("Moyenne QCM", qcmStats.attempts ? `${qcmStats.averagePct}%` : "—")}
     </section>
 
     <section class="content-grid">
@@ -1041,6 +1302,7 @@ function renderResourcesPage() {
 function renderComparisonCard(profileId) {
   const meta = getProfileMeta(profileId);
   const stats = getStatsForProfile(profileId);
+  const qcmStats = getQcmStatsForProfile(profileId);
   const weak = getWeakThemes(profileId)[0]?.theme || "Pas encore de signal";
   const strong = getStrongThemes(profileId)[0]?.theme || "À construire";
   return `
@@ -1053,9 +1315,11 @@ function renderComparisonCard(profileId) {
         <div><small>Passages</small><strong>${stats.total}</strong></div>
         <div><small>Réussites</small><strong>${stats.successes}</strong></div>
         <div><small>Erreurs</small><strong>${stats.errors}</strong></div>
+        <div><small>QCM</small><strong>${qcmStats.attempts}</strong></div>
       </div>
       <p><strong>Point fort :</strong> ${strong}</p>
       <p><strong>Point faible :</strong> ${weak}</p>
+      <p><strong>Dernier QCM :</strong> ${qcmStats.lastScoreLabel}</p>
     </article>
   `;
 }
@@ -1153,6 +1417,11 @@ function handleDocumentClick(event) {
       saveState();
       renderApp();
       break;
+    case "set-qcm-category":
+      state.qcmCategory = target.dataset.category;
+      saveState();
+      renderApp();
+      break;
     case "toggle-glossary-star":
       toggleGlossary(target.dataset.glossaryId);
       break;
@@ -1167,6 +1436,12 @@ function handleDocumentClick(event) {
       break;
     case "record-result":
       recordResult(target.dataset.status);
+      break;
+    case "submit-qcm":
+      submitQcm();
+      break;
+    case "reset-qcm-report":
+      resetQcmReport();
       break;
     case "open-exercise":
       state.selectedExerciseId = target.dataset.exerciseId;
@@ -1250,6 +1525,76 @@ function toggleGlossary(glossaryId) {
   } else {
     profile.starredGlossary = [...profile.starredGlossary, glossaryId];
   }
+  saveState();
+  renderApp();
+}
+
+function submitQcm() {
+  const questions = getQcmQuestions();
+  const form = document.getElementById("qcm-form");
+  if (!form) {
+    return;
+  }
+
+  const answers = {};
+  let score = 0;
+
+  for (const question of questions) {
+    const selected = form.querySelector(`input[name="qcm-${question.id}"]:checked`);
+    const selectedChoiceId = selected?.value || null;
+    const isCorrect = selectedChoiceId === question.correctChoiceId;
+    if (isCorrect) {
+      score += 1;
+    }
+    answers[question.id] = {
+      selectedChoiceId,
+      isCorrect,
+    };
+  }
+
+  const timestamp = Date.now();
+  const profile = getProfileData();
+  profile.qcmLastReport = {
+    timestamp,
+    category: state.qcmCategory,
+    score,
+    total: questions.length,
+    answers,
+  };
+  profile.qcmHistory = [
+    ...profile.qcmHistory,
+    {
+      timestamp,
+      category: state.qcmCategory,
+      score,
+      total: questions.length,
+    },
+  ];
+
+  const mergedMistakes = [
+    ...profile.qcmMistakes,
+    ...questions
+      .filter((question) => !answers[question.id].isCorrect)
+      .map((question) => ({
+        questionId: question.id,
+        selectedChoiceId: answers[question.id].selectedChoiceId,
+        timestamp,
+      })),
+  ];
+
+  const latestByQuestion = new Map();
+  mergedMistakes
+    .sort((a, b) => a.timestamp - b.timestamp)
+    .forEach((mistake) => latestByQuestion.set(mistake.questionId, mistake));
+  profile.qcmMistakes = [...latestByQuestion.values()].sort((a, b) => b.timestamp - a.timestamp);
+
+  saveState();
+  renderApp();
+}
+
+function resetQcmReport() {
+  const profile = getProfileData();
+  profile.qcmLastReport = null;
   saveState();
   renderApp();
 }

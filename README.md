@@ -8,6 +8,7 @@ Site statique de préparation aux oraux X/ENS, en français, pensé pour GitHub 
 - Un tableau de bord de progression
 - Une zone de cours structurée à partir des thèmes Francinou et des rapports ENS
 - Un glossaire orienté oral
+- Un QCM de résultats classiques à connaître
 - Un corpus d'oraux blancs filtrable
 - Une mémoire des erreurs par profil
 - Une page de résultats avec comparaison des profils
