@@ -147,31 +147,22 @@ function renderNav() {
 }
 
 function renderAccounts() {
-  const current = state.selectedProfileId;
+  const current = getProfileMeta();
+  const stats = getStatsForProfile(current.id);
   accountRoot.innerHTML = `
-    <div class="section-label">
-      <span>Comptes dédiés</span>
-      <small>Persistance locale par profil</small>
-    </div>
-    <div class="account-grid">
-      ${PROFILES.map((profile) => {
-        const stats = getStatsForProfile(profile.id);
-        return `
-          <button
-            class="account-card ${profile.id === current ? "active" : ""}"
-            data-action="select-profile"
-            data-profile-id="${profile.id}"
-            type="button"
-          >
-            <div class="account-avatar">${profile.name.slice(0, 1)}</div>
-            <div class="account-copy">
-              <strong>${profile.name}</strong>
-              <span>${profile.tagline}</span>
-              <small>${stats.successes} réussites · ${stats.errors} erreurs mémorisées</small>
-            </div>
-          </button>
-        `;
-      }).join("")}
+    <div class="profile-select-shell">
+      <label class="sr-only" for="profile-select">Choisir le profil</label>
+      <select id="profile-select" class="profile-select" data-input="profile-select" aria-label="Choisir le profil">
+        ${PROFILES.map(
+          (profile) => `
+            <option value="${profile.id}" ${profile.id === current.id ? "selected" : ""}>
+              ${profile.name}
+            </option>
+          `,
+        ).join("")}
+      </select>
+      <p class="profile-inline-note">${current.tagline}</p>
+      <small class="profile-inline-stats">${stats.successes} réussites · ${stats.errors} erreurs mémorisées</small>
     </div>
   `;
 }
@@ -209,23 +200,6 @@ function renderMain() {
         <p class="lead">${introMap[currentRoute]}</p>
       </div>
       <div class="topbar-side">
-        <div class="profile-switcher-wrap">
-          <span class="toolbar-label">Utilisateur</span>
-          <div class="profile-switcher" role="group" aria-label="Changer d'utilisateur">
-            ${PROFILES.map(
-              (item) => `
-                <button
-                  class="toggle-button ${item.id === state.selectedProfileId ? "active" : ""}"
-                  data-action="select-profile"
-                  data-profile-id="${item.id}"
-                  type="button"
-                >
-                  ${item.name}
-                </button>
-              `,
-            ).join("")}
-          </div>
-        </div>
         <div class="topbar-actions">
           <button class="button secondary" data-action="go-route" data-route="resultats" type="button">
             Voir les résultats
@@ -1574,6 +1548,11 @@ function handleDocumentInput(event) {
   }
 
   switch (inputType) {
+    case "profile-select":
+      state.selectedProfileId = event.target.value;
+      saveState();
+      renderApp();
+      break;
     case "glossary-query":
       state.glossaryQuery = event.target.value;
       saveState();

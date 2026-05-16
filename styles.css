@@ -175,7 +175,6 @@ button {
   text-transform: uppercase;
 }
 
-.account-grid,
 .nav,
 .stack-list,
 .filter-stack,
@@ -190,7 +189,6 @@ button {
   gap: 10px;
 }
 
-.account-card,
 .nav-item,
 .course-item,
 .exercise-item,
@@ -210,47 +208,60 @@ button {
     transform 160ms ease;
 }
 
-.account-card {
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.profile-select-shell {
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr);
-  gap: 12px;
-  align-items: start;
+  gap: 8px;
+}
+
+.profile-select {
   width: 100%;
-  padding: 12px;
+  min-height: 44px;
+  padding: 10px 38px 10px 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  background: var(--surface-muted);
-  text-align: left;
+  color: var(--text);
+  font-weight: 600;
+  appearance: none;
+  background-color: var(--surface-muted);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% - 3px),
+    calc(100% - 12px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
 }
 
-.account-card.active,
-.account-card:hover {
+.profile-select:focus {
+  outline: none;
   border-color: #c8dbff;
-  background: var(--accent-soft);
-  transform: translateY(-1px);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
-.account-avatar {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  color: var(--accent-strong);
-  font-weight: 700;
-  background: #e7efff;
+.profile-inline-note,
+.profile-inline-stats {
+  line-height: 1.45;
 }
 
-.account-copy {
-  display: grid;
-  gap: 4px;
+.profile-inline-note {
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
-.account-copy strong {
-  font-size: 0.96rem;
-}
-
-.account-copy small {
+.profile-inline-stats {
   color: var(--accent-strong);
   font-size: 0.84rem;
 }
@@ -334,43 +345,6 @@ button {
   display: grid;
   gap: 10px;
   justify-items: end;
-}
-
-.profile-switcher-wrap {
-  display: grid;
-  gap: 6px;
-  justify-items: end;
-}
-
-.profile-switcher {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 4px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  background: var(--surface);
-}
-
-.toggle-button {
-  min-height: 34px;
-  padding: 7px 12px;
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm);
-  color: var(--muted);
-  font-weight: 700;
-  background: transparent;
-}
-
-.toggle-button.active {
-  color: var(--accent-strong);
-  border-color: #d8e5ff;
-  background: var(--accent-soft);
-}
-
-.toggle-button:hover {
-  color: var(--text);
-  background: var(--surface-muted);
 }
 
 .button {
@@ -1110,8 +1084,7 @@ a:focus-visible {
     display: grid;
   }
 
-  .topbar-side,
-  .profile-switcher-wrap {
+  .topbar-side {
     justify-items: start;
   }
 
@@ -1145,7 +1118,6 @@ a:focus-visible {
   }
 
   .button-row,
-  .profile-switcher,
   .topbar-actions,
   .chip-grid,
   .memory-actions {
