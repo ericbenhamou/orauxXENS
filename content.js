@@ -2,7 +2,7 @@ const latex = String.raw;
 
 export const APP_META = {
   title: "Oraux X/ENS",
-  subtitle: "Raphael & Henry",
+  subtitle: "Raphael & Heni",
   pitch:
     "Une base de préparation exigeante, pensée pour l'oral : cours, classiques, oraux blancs, mémoire des erreurs et résultats.",
 };
@@ -16,7 +16,7 @@ export const PROFILES = [
   },
   {
     id: "henry",
-    name: "Henry",
+    name: "Heni",
     tagline: "Accent sur la profondeur de cours, l'initiative et la gestion des erreurs.",
     goal: "Construire des exposés plus propres et plus rapides.",
   },

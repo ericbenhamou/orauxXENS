@@ -197,7 +197,7 @@ function renderMain() {
     qcm: "Résultats de cours à reconnaître vite, proprement, sans hésitation.",
     oraux: "Corpus d'exercices classiques, filtrable et annotable.",
     memoire: "Ce qu'il ne faut plus rater deux fois.",
-    resultats: "Suivi des progrès, comparaison Raphael / Henry et points faibles.",
+    resultats: "Suivi des progrès, comparaison Raphael / Heni et points faibles.",
     ressources: "Rapports officiels X/MP, ENS et ancrage Francinou.",
   };
 
@@ -1215,7 +1215,7 @@ function renderResultsPage() {
         <div class="panel-heading">
           <div>
             <p class="eyebrow">Comparatif</p>
-            <h2>Raphael vs Henry</h2>
+            <h2>Raphael vs Heni</h2>
           </div>
         </div>
         <div class="comparison-grid">
