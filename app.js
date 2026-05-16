@@ -14,8 +14,11 @@ import {
 
 const STORAGE_KEY = "oraux-x-ens-state-v1";
 const ROUTE_FALLBACK = "dashboard";
+const MATH_RENDER_RETRY_MS = 80;
+const MATH_RENDER_MAX_ATTEMPTS = 40;
 
 const state = loadState();
+let mathRenderToken = 0;
 
 const ui = {
   timer: {
@@ -126,6 +129,7 @@ function renderApp() {
   renderNav();
   renderAccounts();
   renderMain();
+  queueMathTypeset();
 }
 
 function renderNav() {
@@ -1742,4 +1746,41 @@ function syncTimerDisplay() {
   if (node) {
     node.textContent = formatDuration(ui.timer.elapsedMs);
   }
+}
+
+function queueMathTypeset() {
+  const token = ++mathRenderToken;
+  const roots = [accountRoot, mainRoot].filter(Boolean);
+  window.requestAnimationFrame(() => {
+    attemptMathTypeset(roots, token, 0);
+  });
+}
+
+function attemptMathTypeset(roots, token, attempt) {
+  if (token !== mathRenderToken) {
+    return;
+  }
+
+  if (typeof window.renderMathInElement === "function") {
+    for (const root of roots) {
+      window.renderMathInElement(root, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
+        throwOnError: false,
+      });
+    }
+    return;
+  }
+
+  if (attempt >= MATH_RENDER_MAX_ATTEMPTS) {
+    return;
+  }
+
+  window.setTimeout(() => {
+    attemptMathTypeset(roots, token, attempt + 1);
+  }, MATH_RENDER_RETRY_MS);
 }

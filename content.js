@@ -1,3 +1,5 @@
+const latex = String.raw;
+
 export const APP_META = {
   title: "Oraux X/ENS",
   subtitle: "Raphael & Henry",
@@ -185,7 +187,7 @@ export const COURSE_MODULES = [
     classicMoves: [
       "Introduire la bonne projection.",
       "Diagonaliser dans une base orthonormée adaptée.",
-      "Faire apparaître une identité du type ||u||² = <u,u>.",
+      latex`Faire apparaître une identité du type \(\|u\|^2 = \langle u,u \rangle\).`,
     ],
     sourceRefs: [
       "Francinou, Algèbre 3 : chap. 1 et 2.",
@@ -392,9 +394,9 @@ export const GLOSSARY = [
     term: "Projecteur orthogonal",
     category: "Euclidien",
     definition:
-      "Projecteur p vérifiant p² = p et Im(p) ⟂ Ker(p).",
+      latex`Projecteur \(p\) vérifiant \(p^2 = p\) et \(\operatorname{Im}(p) \perp \operatorname{Ker}(p)\).`,
     oralUse:
-      "Un excellent pivot pour écrire une décomposition E = F ⊕ F⊥ et transformer un problème abstrait en calcul géométrique.",
+      latex`Un excellent pivot pour écrire une décomposition \(E = F \oplus F^\perp\) et transformer un problème abstrait en calcul géométrique.`,
     trap:
       "Dire 'projecteur donc auto-adjoint' sans préciser l'orthogonalité.",
     refs: ["Francinou Algèbre 3"],
@@ -404,7 +406,7 @@ export const GLOSSARY = [
     term: "Polynôme caractéristique",
     category: "Algèbre linéaire",
     definition:
-      "Polynôme χu(X) = det(XI − u), porteur des valeurs propres avec multiplicité algébrique.",
+      latex`Polynôme \(\chi_u(X) = \det(XI - u)\), porteur des valeurs propres avec multiplicité algébrique.`,
     oralUse:
       "Il sert à relier les invariants globaux d'une matrice aux traces, déterminants et coefficients de Newton.",
     trap:
@@ -416,7 +418,7 @@ export const GLOSSARY = [
     term: "Différentiabilité",
     category: "Calcul différentiel",
     definition:
-      "Existence d'une application linéaire L telle que f(a+h)=f(a)+L(h)+o(||h||).",
+      latex`Existence d'une application linéaire \(L\) telle que \(f(a+h)=f(a)+L(h)+o(\|h\|)\).`,
     oralUse:
       "À écrire au tableau dès qu'un exercice en plusieurs variables fait intervenir un développement d'ordre 1.",
     trap:
@@ -452,7 +454,7 @@ export const GLOSSARY = [
     term: "Équivalent",
     category: "Analyse",
     definition:
-      "Relation u_n ~ v_n signifiant u_n / v_n → 1.",
+      latex`Relation \(u_n \sim v_n\) signifiant \(u_n / v_n \to 1\).`,
     oralUse:
       "Le bon outil pour une somme, une intégrale ou une suite récurrente quand une valeur précise n'est pas accessible.",
     trap:
@@ -476,7 +478,7 @@ export const GLOSSARY = [
     term: "Convergence normale",
     category: "Suites de fonctions",
     definition:
-      "Sommabilité uniforme des majorants : ∑ ||f_n||∞ < ∞.",
+      latex`Sommabilité uniforme des majorants : \(\sum \|f_n\|_\infty < \infty\).`,
     oralUse:
       "Très utile pour sommer, intégrer, dériver des séries de fonctions.",
     trap:
@@ -564,7 +566,7 @@ export const GLOSSARY = [
     oralUse:
       "Doit déclencher l'idée de projection, d'inégalité de Pythagore ou de base orthonormée.",
     trap:
-      "Écrire F⊥ sans préciser l'espace ambiant ou la structure euclidienne.",
+      latex`Écrire \(F^\perp\) sans préciser l'espace ambiant ou la structure euclidienne.`,
     refs: ["Francinou Algèbre 3"],
   },
   {
@@ -616,19 +618,19 @@ export const QCM_QUESTIONS = [
     ],
     correctChoiceId: "b",
     explanation:
-      "Si χA est le polynôme caractéristique de A, alors χA(A)=0. C'est un pivot classique pour produire des relations polynomiales en A.",
+      latex`Si \(\chi_A\) est le polynôme caractéristique de \(A\), alors \(\chi_A(A)=0\). C'est un pivot classique pour produire des relations polynomiales en \(A\).`,
     refs: ["Francinou Algèbre 1", "Zone de cours : Réduction."],
   },
   {
     id: "qcm-rang-noyau",
     category: "Algèbre linéaire",
     prompt:
-      "Pour un endomorphisme u d'un espace vectoriel E de dimension finie n, quelle relation est vraie ?",
+      latex`Pour un endomorphisme \(u\) d'un espace vectoriel \(E\) de dimension finie \(n\), quelle relation est vraie ?`,
     choices: [
-      { id: "a", text: "rg(u) = dim Ker(u)." },
-      { id: "b", text: "rg(u) + dim Ker(u) = n." },
-      { id: "c", text: "rg(u) = n pour tout u." },
-      { id: "d", text: "dim Ker(u) = 0 pour tout u non nul." },
+      { id: "a", text: latex`\(\operatorname{rg}(u) = \dim \operatorname{Ker}(u)\).` },
+      { id: "b", text: latex`\(\operatorname{rg}(u) + \dim \operatorname{Ker}(u) = n\).` },
+      { id: "c", text: latex`\(\operatorname{rg}(u) = n\) pour tout \(u\).` },
+      { id: "d", text: latex`\(\dim \operatorname{Ker}(u) = 0\) pour tout \(u\) non nul.` },
     ],
     correctChoiceId: "b",
     explanation:
@@ -656,19 +658,19 @@ export const QCM_QUESTIONS = [
   {
     id: "qcm-projecteur-orthogonal",
     category: "Algèbre linéaire",
-    prompt: "Comment reconnaître un projecteur orthogonal p ?",
+    prompt: latex`Comment reconnaître un projecteur orthogonal \(p\) ?`,
     choices: [
-      { id: "a", text: "p² = 0 et p = -p*." },
+      { id: "a", text: latex`\(\,p^2 = 0\,\) et \(p = -p^*\).` },
       {
         id: "b",
-        text: "p² = p et p est auto-adjoint.",
+        text: latex`\(\,p^2 = p\,\) et \(p\) est auto-adjoint.`,
       },
-      { id: "c", text: "p³ = p et tr(p) = 0." },
-      { id: "d", text: "p est inversible et orthogonale." },
+      { id: "c", text: latex`\(\,p^3 = p\,\) et \(\operatorname{tr}(p) = 0\).` },
+      { id: "d", text: latex`\(p\) est inversible et orthogonale.` },
     ],
     correctChoiceId: "b",
     explanation:
-      "En espace euclidien, p est le projecteur orthogonal sur F si et seulement si p²=p et p*=p.",
+      latex`En espace euclidien, \(p\) est le projecteur orthogonal sur \(F\) si et seulement si \(p^2 = p\) et \(p^* = p\).`,
     refs: ["Francinou Algèbre 3, projecteurs orthogonaux."],
   },
   {
@@ -694,15 +696,15 @@ export const QCM_QUESTIONS = [
     id: "qcm-adjoint-image",
     category: "Algèbre linéaire",
     prompt:
-      "Pour un endomorphisme u d'un espace euclidien, quelle identité est correcte ?",
+      latex`Pour un endomorphisme \(u\) d'un espace euclidien, quelle identité est correcte ?`,
     choices: [
-      { id: "a", text: "Ker(u*) = Ker(u)." },
+      { id: "a", text: latex`\(\operatorname{Ker}(u^*) = \operatorname{Ker}(u)\).` },
       {
         id: "b",
-        text: "Ker(u*) = Im(u)⊥.",
+        text: latex`\(\operatorname{Ker}(u^*) = \operatorname{Im}(u)^\perp\).`,
       },
-      { id: "c", text: "Im(u*) = Im(u)." },
-      { id: "d", text: "Ker(u) = Im(u)." },
+      { id: "c", text: latex`\(\operatorname{Im}(u^*) = \operatorname{Im}(u)\).` },
+      { id: "d", text: latex`\(\operatorname{Ker}(u) = \operatorname{Im}(u)\).` },
     ],
     correctChoiceId: "b",
     explanation:
@@ -730,7 +732,7 @@ export const QCM_QUESTIONS = [
   {
     id: "qcm-finite-subgroup-cstar",
     category: "Algèbre générale",
-    prompt: "Quel énoncé est vrai pour un sous-groupe fini de C* ?",
+    prompt: latex`Quel énoncé est vrai pour un sous-groupe fini de \(\mathbf{C}^*\) ?`,
     choices: [
       { id: "a", text: "Il est toujours d'ordre pair." },
       {
@@ -742,14 +744,14 @@ export const QCM_QUESTIONS = [
     ],
     correctChoiceId: "b",
     explanation:
-      "Un sous-groupe fini de C* est formé de racines de l'unité, donc il est cyclique. C'est un résultat très classique de structure.",
+      latex`Un sous-groupe fini de \(\mathbf{C}^*\) est formé de racines de l'unité, donc il est cyclique. C'est un résultat très classique de structure.`,
     refs: ["Francinou Algèbre 1", "Zone de cours : Groupes."],
   },
   {
     id: "qcm-polynome-racines",
     category: "Algèbre générale",
     prompt:
-      "Que peut-on dire d'un polynôme non nul de degré n sur un corps, s'il admet n+1 racines distinctes ?",
+      latex`Que peut-on dire d'un polynôme non nul de degré \(n\) sur un corps, s'il admet \(n+1\) racines distinctes ?`,
     choices: [
       { id: "a", text: "C'est possible si le corps est infini." },
       {
@@ -757,17 +759,17 @@ export const QCM_QUESTIONS = [
         text: "C'est impossible : il serait alors nécessairement nul.",
       },
       { id: "c", text: "Il est alors scindé à racines simples." },
-      { id: "d", text: "Il est divisible par X^(n+1)." },
+      { id: "d", text: latex`Il est divisible par \(X^{n+1}\).` },
     ],
     correctChoiceId: "b",
     explanation:
-      "Un polynôme non nul de degré n ne peut pas avoir plus de n racines distinctes. C'est un réflexe de base indispensable.",
+      latex`Un polynôme non nul de degré \(n\) ne peut pas avoir plus de \(n\) racines distinctes. C'est un réflexe de base indispensable.`,
     refs: ["Francinou Algèbre 1, polynômes."],
   },
   {
     id: "qcm-zmodp",
     category: "Algèbre générale",
-    prompt: "Si p est premier, quelle affirmation sur Z/pZ est juste ?",
+    prompt: latex`Si \(p\) est premier, quelle affirmation sur \(\mathbf{Z}/p\mathbf{Z}\) est juste ?`,
     choices: [
       { id: "a", text: "Tout élément non nul est nilpotent." },
       {
@@ -775,11 +777,11 @@ export const QCM_QUESTIONS = [
         text: "Tout élément non nul y est inversible.",
       },
       { id: "c", text: "L'anneau n'a que deux éléments non nuls." },
-      { id: "d", text: "Il n'existe aucun polynôme non constant sur Z/pZ." },
+      { id: "d", text: latex`Il n'existe aucun polynôme non constant sur \(\mathbf{Z}/p\mathbf{Z}\).` },
     ],
     correctChoiceId: "b",
     explanation:
-      "Z/pZ est un corps si et seulement si p est premier. Il faut savoir l'utiliser immédiatement dans les raisonnements de congruence.",
+      latex`\(\mathbf{Z}/p\mathbf{Z}\) est un corps si et seulement si \(p\) est premier. Il faut savoir l'utiliser immédiatement dans les raisonnements de congruence.`,
     refs: ["Francinou Algèbre 1, arithmétique."],
   },
   {
@@ -882,15 +884,15 @@ export const QCM_QUESTIONS = [
     id: "qcm-rayon-derivation",
     category: "Analyse",
     prompt:
-      "Pour une série entière Σ an z^n de rayon de convergence R, que vaut le rayon de sa série dérivée ?",
+      latex`Pour une série entière \(\sum a_n z^n\) de rayon de convergence \(R\), que vaut le rayon de sa série dérivée ?`,
     choices: [
       { id: "a", text: "0." },
       {
         id: "b",
-        text: "Le même rayon R.",
+        text: latex`Le même rayon \(R\).`,
       },
-      { id: "c", text: "Toujours +∞." },
-      { id: "d", text: "Toujours R/2." },
+      { id: "c", text: latex`Toujours \(+\infty\).` },
+      { id: "d", text: latex`Toujours \(R/2\).` },
     ],
     correctChoiceId: "b",
     explanation:
@@ -923,11 +925,11 @@ export const QCM_QUESTIONS = [
     choices: [
       {
         id: "a",
-        text: "E(X+Y)=E(X)+E(Y).",
+        text: latex`\(\mathbb{E}(X+Y)=\mathbb{E}(X)+\mathbb{E}(Y)\).`,
       },
-      { id: "b", text: "E(XY)=E(X)E(Y)." },
-      { id: "c", text: "Var(X+Y)=Var(X)+Var(Y)." },
-      { id: "d", text: "P(X=Y)=P(X)P(Y)." },
+      { id: "b", text: latex`\(\mathbb{E}(XY)=\mathbb{E}(X)\mathbb{E}(Y)\).` },
+      { id: "c", text: latex`\(\operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)\).` },
+      { id: "d", text: latex`\(\mathbb{P}(X=Y)=\mathbb{P}(X)\mathbb{P}(Y)\).` },
     ],
     correctChoiceId: "a",
     explanation:
@@ -940,13 +942,13 @@ export const QCM_QUESTIONS = [
     prompt:
       "Pour des variables aléatoires indépendantes X et Y de variance finie, quelle formule est correcte ?",
     choices: [
-      { id: "a", text: "Var(X+Y)=Var(X)Var(Y)." },
+      { id: "a", text: latex`\(\operatorname{Var}(X+Y)=\operatorname{Var}(X)\operatorname{Var}(Y)\).` },
       {
         id: "b",
-        text: "Var(X+Y)=Var(X)+Var(Y).",
+        text: latex`\(\operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)\).`,
       },
-      { id: "c", text: "Var(X+Y)=Var(X)-Var(Y)." },
-      { id: "d", text: "Var(X+Y)=0." },
+      { id: "c", text: latex`\(\operatorname{Var}(X+Y)=\operatorname{Var}(X)-\operatorname{Var}(Y)\).` },
+      { id: "d", text: latex`\(\operatorname{Var}(X+Y)=0\).` },
     ],
     correctChoiceId: "b",
     explanation:
@@ -965,12 +967,12 @@ export const EXERCISES = [
     duration: "35-45 min",
     tags: ["matrices", "trace", "polynôme caractéristique", "formules de Newton"],
     statement:
-      "Pour une matrice A de taille n, relier les coefficients du polynôme caractéristique aux traces tr(A), tr(A²), ..., tr(A^k), puis obtenir les formules de Newton dans un cadre matriciel.",
+      latex`Pour une matrice \(A\) de taille \(n\), relier les coefficients du polynôme caractéristique aux traces \(\operatorname{tr}(A)\), \(\operatorname{tr}(A^2)\), ..., \(\operatorname{tr}(A^k)\), puis obtenir les formules de Newton dans un cadre matriciel.`,
     oralFrame:
       "Le jury attend un aller-retour fluide entre valeurs propres, déterminants et identités polynomiales. Le bon angle consiste souvent à calculer la même quantité de deux manières.",
     expectedMoves: [
-      "Écrire χA(X) = ∏(X − λi) et comparer avec le développement en coefficients symétriques.",
-      "Utiliser la dérivée ou une somme du type Σ χA(X)/(X−λi).",
+      latex`Écrire \(\chi_A(X) = \prod_i (X - \lambda_i)\) et comparer avec le développement en coefficients symétriques.`,
+      latex`Utiliser la dérivée ou une somme du type \(\sum_i \chi_A(X)/(X-\lambda_i)\).`,
       "Reconnaître une relation triangulaire permettant de remonter aux coefficients.",
     ],
     commonErrors: [
@@ -992,7 +994,7 @@ export const EXERCISES = [
     duration: "20-30 min",
     tags: ["continuité", "topologie", "dénombrable"],
     statement:
-      "Soit f : R → R telle que pour tout a réel, lim_{x→a} f(x) existe. Montrer que l'ensemble des points de discontinuité de f est dénombrable.",
+      latex`Soit \(f : \mathbf{R} \to \mathbf{R}\) telle que pour tout réel \(a\), \(\lim_{x \to a} f(x)\) existe. Montrer que l'ensemble des points de discontinuité de \(f\) est dénombrable.`,
     oralFrame:
       "C'est un excellent test de recul. Le problème se résout mieux en quantifiant la taille d'un saut qu'en restant au niveau des phrases intuitives.",
     expectedMoves: [
@@ -1019,12 +1021,12 @@ export const EXERCISES = [
     duration: "20-25 min",
     tags: ["équicontinuité", "limite simple", "continuité"],
     statement:
-      "Soit (fn) une suite de fonctions dérivables sur R telle que ||f'n||∞ ≤ 1 pour tout n, et fn → g simplement. Montrer que g est continue.",
+      latex`Soit \((f_n)\) une suite de fonctions dérivables sur \(\mathbf{R}\) telle que \(\|f_n'\|_\infty \le 1\) pour tout \(n\), et \(f_n \to g\) simplement. Montrer que \(g\) est continue.`,
     oralFrame:
       "L'oral vérifie ici que tu sais convertir une hypothèse technique en contrôle uniforme local sans citer hors programme.",
     expectedMoves: [
       "Appliquer l'inégalité des accroissements finis à chaque fn.",
-      "Passer à la limite pour obtenir |g(x)−g(y)| ≤ |x−y|.",
+      latex`Passer à la limite pour obtenir \(|g(x)-g(y)| \le |x-y|\).`,
       "Conclure que g est même 1-lipschitzienne.",
     ],
     commonErrors: [
@@ -1039,18 +1041,18 @@ export const EXERCISES = [
   },
   {
     id: "zeros-derives-positives",
-    title: "Fonction C∞ à dérivées positives : combien de zéros ?",
+    title: latex`Fonction \(C^\infty\) à dérivées positives : combien de zéros ?`,
     theme: "Analyse réelle",
     difficulty: "Ambitieux",
     priority: "Sélectif",
     duration: "30-40 min",
     tags: ["Taylor", "convexité", "séries entières"],
     statement:
-      "Soit f : [0,1] → R, C∞, non constante, telle que pour tout n et tout x, f^(n)(x) ≥ 0. Montrer que f ne peut s'annuler qu'au plus une fois. En relance : montrer qu'elle est développable en série entière au voisinage de tout point intérieur.",
+      latex`Soit \(f : [0,1] \to \mathbf{R}\), \(C^\infty\), non constante, telle que pour tout \(n\) et tout \(x\), \(f^{(n)}(x) \ge 0\). Montrer que \(f\) ne peut s'annuler qu'au plus une fois. En relance : montrer qu'elle est développable en série entière au voisinage de tout point intérieur.`,
     oralFrame:
       "Le jury attend une lecture qualitative avant le calcul : monotonie, convexité, puis propagation des signes des dérivées.",
     expectedMoves: [
-      "Observer que f' ≥ 0 donc f est croissante, puis affiner avec f'' ≥ 0.",
+      latex`Observer que \(f' \ge 0\) donc \(f\) est croissante, puis affiner avec \(f'' \ge 0\).`,
       "Analyser ce que plusieurs zéros forceraient sur les dérivées par Rolle.",
       "Relier les restes de Taylor à la positivité des dérivées.",
     ],
@@ -1066,16 +1068,16 @@ export const EXERCISES = [
   },
   {
     id: "projecteur-moyenne",
-    title: "L'opérateur H(u) = (up + pu)/2 est-il diagonalisable ?",
+    title: latex`L'opérateur \(H(u) = (up + pu)/2\) est-il diagonalisable ?`,
     theme: "Algèbre linéaire",
     difficulty: "Classique",
     priority: "Fréquent",
     duration: "25-35 min",
     tags: ["projecteur", "endomorphisme", "décomposition"],
     statement:
-      "Sur un espace de dimension finie, p est un projecteur. On définit H sur L(E) par H(u) = (u∘p + p∘u)/2. Étudier la diagonalisabilité de H.",
+      latex`Sur un espace de dimension finie, \(p\) est un projecteur. On définit \(H\) sur \(L(E)\) par \(H(u) = (u \circ p + p \circ u)/2\). Étudier la diagonalisabilité de \(H\).`,
     oralFrame:
-      "Très bon exercice de lecture structurelle : il faut adapter la décomposition E = Im(p) ⊕ Ker(p) au niveau de L(E).",
+      latex`Très bon exercice de lecture structurelle : il faut adapter la décomposition \(E = \operatorname{Im}(p) \oplus \operatorname{Ker}(p)\) au niveau de \(L(E)\).`,
     expectedMoves: [
       "Décomposer tout u en blocs selon Im(p) et Ker(p).",
       "Calculer l'effet de H sur chaque bloc.",
@@ -1100,7 +1102,7 @@ export const EXERCISES = [
     duration: "35-45 min",
     tags: ["géométrie", "topologie", "convexité", "droites"],
     statement:
-      "Soit f : R^n → R continue, telle que sa restriction à toute droite soit monotone. Montrer qu'il existe une forme linéaire φ et une fonction monotone h telles que f = h ∘ φ.",
+      latex`Soit \(f : \mathbf{R}^n \to \mathbf{R}\) continue, telle que sa restriction à toute droite soit monotone. Montrer qu'il existe une forme linéaire \(\varphi\) et une fonction monotone \(h\) telles que \(f = h \circ \varphi\).`,
     oralFrame:
       "Le bon oral construit une intuition géométrique, puis la rigidifie. L'exercice teste une vraie capacité à formuler des structures avant de prouver.",
     expectedMoves: [
@@ -1208,7 +1210,7 @@ export const EXERCISES = [
     duration: "35-45 min",
     tags: ["groupes", "stabilité", "fonctionnelle"],
     statement:
-      "Soit f : G → C telle que |f(xy) − f(x)f(y)| ≤ δ pour tous x,y. Montrer qu'alors f est uniformément bornée, ou bien exactement multiplicative.",
+      latex`Soit \(f : G \to \mathbf{C}\) telle que \(|f(xy) - f(x)f(y)| \le \delta\) pour tous \(x,y\). Montrer qu'alors \(f\) est uniformément bornée, ou bien exactement multiplicative.`,
     oralFrame:
       "Le bon angle consiste à comprendre ce que produit l'itération : si f est trop grande quelque part, l'erreur relative se tasse et la multiplicativité se force.",
     expectedMoves: [
@@ -1235,11 +1237,11 @@ export const EXERCISES = [
     duration: "25-35 min",
     tags: ["rang", "idempotents", "Sylvester"],
     statement:
-      "Soient A1,...,Ak des matrices vérifiant Aj² = Aj. Montrer que Σ(n − rg(Aj)) ≥ rg(I − A1...Ak).",
+      latex`Soient \(A_1,\ldots,A_k\) des matrices vérifiant \(A_j^2 = A_j\). Montrer que \(\sum (n - \operatorname{rg}(A_j)) \ge \operatorname{rg}(I - A_1 \cdots A_k)\).`,
     oralFrame:
       "Un classique intelligent : les bons candidats pensent très vite aux noyaux, images et à Sylvester avant d'essayer d'ouvrir les produits.",
     expectedMoves: [
-      "Identifier n−rg(Aj) comme dim Ker(Aj).",
+      latex`Identifier \(n-\operatorname{rg}(A_j)\) comme \(\dim \operatorname{Ker}(A_j)\).`,
       "Suivre l'effet successif des idempotents sur un vecteur.",
       "Faire apparaître une inclusion de noyaux ou utiliser une inégalité de rang.",
     ],
@@ -1262,18 +1264,18 @@ export const EXERCISES = [
     duration: "20-30 min",
     tags: ["Newton", "EDO", "local"],
     statement:
-      "Soit f de classe C² sur R, avec f(x*) = 0 et f'(x*) ≠ 0. Montrer qu'il existe un voisinage de x* tel que l'itération de Newton y converge dès que le point initial est choisi dedans.",
+      latex`Soit \(f\) de classe \(C^2\) sur \(\mathbf{R}\), avec \(f(x^*) = 0\) et \(f'(x^*) \ne 0\). Montrer qu'il existe un voisinage de \(x^*\) tel que l'itération de Newton y converge dès que le point initial est choisi dedans.`,
     oralFrame:
       "On ne veut pas une récitation du théorème abstrait : on veut voir la bonne estimation locale, proprement contrôlée.",
     expectedMoves: [
-      "Écrire l'itération comme x_{k+1} − x* = Φ(x_k)(x_k − x*).",
-      "Utiliser Taylor ou un reste intégral pour montrer que Φ(x) est petit près de x*.",
+      latex`Écrire l'itération comme \(x_{k+1} - x^* = \Phi(x_k)(x_k - x^*)\).`,
+      latex`Utiliser Taylor ou un reste intégral pour montrer que \(\Phi(x)\) est petit près de \(x^*\).`,
       "Conclure par contraction locale ou contrôle quadratique.",
     ],
     commonErrors: [
       "Supposer f' bornée loin du point sans justification.",
-      "Oublier que f'(x*) ≠ 0 garantit la définition locale de l'itération.",
-      "Ne pas isoler l'erreur x_k−x*.",
+      latex`Oublier que \(f'(x^*) \ne 0\) garantit la définition locale de l'itération.`,
+      latex`Ne pas isoler l'erreur \(x_k-x^*\).`,
     ],
     relatedCourseIds: ["diff-eq", "integration"],
     sourceLabel: "ENS ULSR 2025, exercice 6",
@@ -1282,14 +1284,14 @@ export const EXERCISES = [
   },
   {
     id: "variation-constante",
-    title: "Si f'' + f' + f tend vers 0, pourquoi f tend-elle vers 0 ?",
+    title: latex`Si \(f'' + f' + f\) tend vers \(0\), pourquoi \(f\) tend-elle vers \(0\) ?`,
     theme: "Équations différentielles",
     difficulty: "Classique",
     priority: "Fréquent",
     duration: "20-30 min",
     tags: ["EDO", "variation de la constante", "stabilité"],
     statement:
-      "Soit f ∈ C²(R,C) telle que f''(t)+f'(t)+f(t) → 0 quand t→+∞. Montrer que f(t)→0.",
+      latex`Soit \(f \in C^2(\mathbf{R}, \mathbf{C})\) telle que \(f''(t)+f'(t)+f(t) \to 0\) quand \(t \to +\infty\). Montrer que \(f(t)\to0\).`,
     oralFrame:
       "Le jury 2025 s'en sert comme révélateur : reconnaître la structure de l'équation et utiliser proprement la variation de la constante.",
     expectedMoves: [
@@ -1342,7 +1344,7 @@ export const EXERCISES = [
     duration: "30-40 min",
     tags: ["algèbre", "formes quadratiques", "stabilité"],
     statement:
-      "Pour Σ_n(A) = {x1² + ... + xn²}, étudier la stabilité multiplicative de Σ_n et comprendre le rôle des puissances de 2.",
+      latex`Pour \(\Sigma_n(A) = \{x_1^2 + \cdots + x_n^2\}\), étudier la stabilité multiplicative de \(\Sigma_n\) et comprendre le rôle des puissances de \(2\).`,
     oralFrame:
       "Très bon exercice pour mesurer la capacité à faire émerger une structure matricielle à partir d'une question arithmétique ou quadratique.",
     expectedMoves: [
@@ -1369,13 +1371,13 @@ export const EXERCISES = [
     duration: "35-45 min",
     tags: ["queues", "maximum", "équivalences"],
     statement:
-      "Pour des Xi i.i.d. à valeurs dans N, relier une condition de queue P(X ≥ ax)/P(X ≥ x)→0 à l'existence d'une normalisation bn pour laquelle max(X1,...,Xn)/bn tend vers 1 en probabilité.",
+      latex`Pour des \(X_i\) i.i.d. à valeurs dans \(\mathbf{N}\), relier une condition de queue \(\mathbb{P}(X \ge ax)/\mathbb{P}(X \ge x)\to0\) à l'existence d'une normalisation \(b_n\) pour laquelle \(\max(X_1,\ldots,X_n)/b_n\) tend vers \(1\) en probabilité.`,
     oralFrame:
       "Ici, l'idée compte davantage que la fermeture complète. Le bon oral identifie rapidement la logique 'queue rare ↔ maximum concentré'.",
     expectedMoves: [
       "Traduire l'événement sur le maximum via indépendance.",
       "Choisir bn comme quantile discret naturel.",
-      "Comparer les probabilités P(X ≥ (1±ε)bn).",
+      latex`Comparer les probabilités \(\mathbb{P}(X \ge (1 \pm \varepsilon)b_n)\).`,
     ],
     commonErrors: [
       "Ne pas exploiter l'indépendance sur le maximum.",
