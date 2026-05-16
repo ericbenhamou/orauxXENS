@@ -962,6 +962,44 @@ a:focus-visible {
   gap: 16px;
 }
 
+.jury-content-grid {
+  align-items: start;
+}
+
+.jury-year-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.jury-year-card {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.jury-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.jury-theme,
+.jury-stats {
+  margin: 0;
+}
+
+.jury-theme {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.jury-stats {
+  color: var(--accent-strong);
+  font-size: 0.9rem;
+}
+
 .section-note {
   color: var(--muted);
   line-height: 1.6;

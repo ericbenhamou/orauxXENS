@@ -31,6 +31,7 @@ export const NAV_ITEMS = [
   { id: "memoire", label: "Mémoire des erreurs" },
   { id: "resultats", label: "Résultats" },
   { id: "ressources", label: "Ressources" },
+  { id: "retours-x", label: "Retours jury X" },
 ];
 
 export const JURY_ALERTS = [
@@ -1645,6 +1646,167 @@ export const POLYTECHNIQUE_MP_REPORT_SECTIONS = [
     ],
   },
 ];
+
+export const POLYTECHNIQUE_X_JURY_FEEDBACK = {
+  checkedOn: "16 mai 2026",
+  sourceUrl: POLYTECHNIQUE_MP_REPORTS_PAGE_URL,
+  note:
+    "Synthèse construite à partir des rapports écrits officiels de l'École polytechnique pour la filière MP en Math A et Math B. Au 16 mai 2026, les sujets 2026 sont déjà publiés sur la page officielle, mais les rapports 2026 de Math A et Math B n'y sont pas encore liés.",
+  crossLessons: [
+    {
+      title: "Rigueur visible",
+      body:
+        "Le jury répète d'année en année que la copie doit être structurée, lisible, et que les hypothèses comme les vérifications élémentaires doivent être explicitement écrites.",
+    },
+    {
+      title: "Mieux vaut un bloc solide qu'un survol",
+      body:
+        "Math A comme Math B valorisent davantage quelques questions enchaînées, traitées proprement, qu'un papillonnage destiné à grappiller des points rapides.",
+    },
+    {
+      title: "Les bases tranchent les copies",
+      body:
+        "Les écarts se creusent moins sur les idées spectaculaires que sur les fondamentaux : polynômes d'endomorphisme, diagonalisabilité, normes, continuité, équivalents, quantificateurs, séries et probabilités de base.",
+    },
+    {
+      title: "Une boîte noire doit rester contrôlée",
+      body:
+        "Le jury sanctionne les appels vagues à une question précédente, au hors-programme, ou à un théorème utilisé sans vérification claire de ses hypothèses.",
+    },
+  ],
+  papers: [
+    {
+      id: "math-a",
+      label: "Math A",
+      summary:
+        "Math A pousse souvent vers l'algèbre structurale, les notations chargées, les changements de point de vue et la réutilisation intelligente des résultats construits dans le sujet.",
+      recurring: [
+        "Référencer précisément la question antérieure utilisée et expliquer le raccord logique.",
+        "Être propre sur les polynômes d'endomorphisme, les noyaux, les espaces propres, les matrices dans deux bases et les raisonnements topologiques de base.",
+        "Ne pas se laisser piéger par la longueur du sujet : finir n'est pas nécessaire, mais ce qui est traité doit être tenu jusqu'au bout.",
+      ],
+      years: [
+        {
+          year: "2025",
+          filieres: "MP-MPI",
+          theme: "Nilpotents, blocs de Jordan, séries de Laurent et suppléments stables.",
+          stats: "Pas de statistique globale lisible dans l'extrait du rapport.",
+          lessons: [
+            "Le rapport insiste sur la référence précise aux questions antérieures ; les formules vagues du type « d'après les résultats précédents » ne sont pas valorisées.",
+            "Des lacunes nettes ont été relevées sur l'algèbre des polynômes d'endomorphisme et sur la compréhension des idéaux.",
+            "Le sujet était long ; la partie finale a très peu été abordée, sans empêcher d'excellentes notes sur des copies rigoureuses.",
+          ],
+          href:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP%20et%20MPI_Maths%20A%20OK.pdf",
+        },
+        {
+          year: "2024",
+          filieres: "MP-MPI",
+          theme: "Permutations, arithmétique et comparaisons asymptotiques.",
+          stats: "Moyenne globale : 8,16/20.",
+          lessons: [
+            "Les correcteurs signalent des confusions sur la matrice d'une application linéaire entre bases de départ et d'arrivée différentes.",
+            "Les comparaisons asymptotiques ont souvent été mal manipulées, en particulier la différence entre équivalent, petit o et développement limité.",
+            "Le lemme de Gauss a été mal intégré dans de nombreuses copies ; là encore, le sujet ne demandait pas d'être fini pour bien noter.",
+          ],
+          href:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP-MPI%20RAPPORT%20ECRIT%20MATHEMATIQUES%20A%20%28XLSR%29.pdf",
+        },
+        {
+          year: "2023",
+          filieres: "MP-MPI",
+          theme: "Quaternions, algèbres réelles et normes multiplicatives.",
+          stats: "Moyennes rapportées : MP 9,37/20 ; MPI 9,19/20.",
+          lessons: [
+            "Le noyau d'un morphisme, les critères de sous-groupe et la distinction entre inverse dans une algèbre et inverse matricielle ont posé problème.",
+            "Des arguments de dimension ont été utilisés hors cadre, par exemple sur des groupes comme SO3(R).",
+            "La continuité et le choix d'une norme ont souvent été traités trop vite alors que le cadre de dimension finie devait être explicitement mobilisé.",
+          ],
+          href:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP-MPI%20RAPPORT%20ECRIT%20MATHEMATIQUES%20A%20%28XLSR%29.pdf",
+        },
+        {
+          year: "2022",
+          filieres: "MP",
+          theme: "Grassmanniennes orientées, matrices de Gram et topologie euclidienne.",
+          stats: "Moyenne candidats français : 8,06/20.",
+          lessons: [
+            "Le jury souligne la lourdeur des notations et la nécessité d'intégrer proprement les objets abstraits avant de calculer.",
+            "Des copies ont confondu le nombre de vecteurs d'une famille avec la dimension de l'espace, ou remplacé un espace euclidien abstrait par R^n sans justification.",
+            "La dernière partie demandait surtout de bien réinjecter les résultats et notations des premières parties.",
+          ],
+          href:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP%20RAPPORT%20ECRIT%20MATHS%20A%20%28XLSR%29.pdf",
+        },
+      ],
+    },
+    {
+      id: "math-b",
+      label: "Math B",
+      summary:
+        "Math B valorise la tenue technique sur des sujets transversaux : analyse fine, EDO, séries, réduction, probabilités, avec une exigence forte sur la rédaction et les vérifications apparemment simples.",
+      recurring: [
+        "Traiter un sous-ensemble cohérent de questions, y compris intermédiaires ou difficiles, plutôt que disperser la copie.",
+        "Vérifier les hypothèses des résultats réutilisés et écrire aussi les vérifications élémentaires lorsqu'elles structurent la preuve.",
+        "Soigner la lisibilité : brouillon, tri des idées et dosage entre concision et précision reviennent constamment dans les rapports.",
+      ],
+      years: [
+        {
+          year: "2025",
+          filieres: "MP-MPI",
+          theme: "Interpolation, polynômes, fonctions absolument monotones et fonctions de type positif.",
+          stats: "Moyenne toutes filières : 9,50/20 ; MP : 9,52/20.",
+          lessons: [
+            "Le rapport conseille de traiter correctement plusieurs questions consécutives, éventuellement difficiles, plutôt que de survoler toutes les parties.",
+            "Il est permis de sauter une question puis d'utiliser son résultat, à condition de vérifier soigneusement les hypothèses de cette boîte noire.",
+            "Les correcteurs insistent sur le soin, l'usage du brouillon et la nécessité de mentionner même les vérifications triviales.",
+          ],
+          href:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP_Maths%20B%20OK.pdf",
+        },
+        {
+          year: "2024",
+          filieres: "MP-MPI",
+          theme: "Systèmes différentiels périodiques, Floquet, inversion locale et exponentielle matricielle.",
+          stats: "Moyenne toutes filières : 9,12/20 ; MP : 9,14/20.",
+          lessons: [
+            "Le rapport dit explicitement qu'une stratégie de grappillage est vouée à l'échec ; certaines questions charnières devaient être tenues pour débloquer la suite.",
+            "Les copies trop raturées, microscopiques ou incomplètes font perdre des points même quand l'idée est présente.",
+            "Les vérifications simples, comme celles de la question 8a, devaient malgré tout apparaître dans la copie.",
+          ],
+          href:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%2C%20MPI%20RAPPORT%20ECRIT%20DE%20MATHS%20B%20%28X%29.pdf",
+        },
+        {
+          year: "2023",
+          filieres: "MP-MPI",
+          theme: "Matrices symétriques dépendant d'un paramètre et fonctions développables en série entière.",
+          stats: "Moyennes rapportées : MP 9,25/20 ; MPI 9,21/20.",
+          lessons: [
+            "Le rapport relève une légère baisse chez les copies faibles, mais un niveau stable chez les admissibles.",
+            "Des confusions lourdes sont signalées sur les fonctions DSE, les normes et la différence entre « fonction non nulle » et « fonction ne s'annulant pas ».",
+            "L'existence et l'unicité devaient être rédigées comme deux étapes distinctes, même quand la conclusion semblait naturelle.",
+          ],
+          href:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP-MPI%20RAPPORT%20ECRIT%20MATHEMATIQUES%20B%20%28X%29.pdf",
+        },
+        {
+          year: "2022",
+          filieres: "MP",
+          theme: "Fonction zêta, séries, analyse réelle et probabilités arithmétiques.",
+          stats: "Moyenne candidats français : 9,73/20.",
+          lessons: [
+            "Le jury parle d'une baisse nette du niveau moyen et rappelle que limites, équivalents, continuité et quantificateurs suffisent souvent à départager les copies.",
+            "La gestion des séries, de l'ordre de sommation et des passages à la limite a posé beaucoup de problèmes.",
+            "Les bases de probabilités et certains outils simples comme le théorème de Gauss ont été moins bien maîtrisés qu'attendu.",
+          ],
+          href:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP%20RAPPORT%20ECRIT%20MATHS%20B%20%28X%29.pdf",
+        },
+      ],
+    },
+  ],
+};
 
 export const RESOURCE_LINKS = [
   {

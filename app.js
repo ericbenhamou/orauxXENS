@@ -6,6 +6,7 @@ import {
   JURY_ALERTS,
   NAV_ITEMS,
   POLYTECHNIQUE_MP_REPORT_SECTIONS,
+  POLYTECHNIQUE_X_JURY_FEEDBACK,
   POLYTECHNIQUE_MP_REPORTS_PAGE_URL,
   PROFILES,
   QCM_QUESTIONS,
@@ -179,6 +180,7 @@ function renderMain() {
     memoire: "Mémoire des erreurs",
     resultats: "Résultats",
     ressources: "Ressources",
+    "retours-x": "Retours jury X",
   };
 
   const introMap = {
@@ -190,6 +192,7 @@ function renderMain() {
     memoire: "Ce qu'il ne faut plus rater deux fois.",
     resultats: "Suivi des progrès, comparaison Raphael / Heni et points faibles.",
     ressources: "Rapports officiels X/MP, ENS et ancrage Francinou.",
+    "retours-x": "Lecture condensée des rapports écrits X pour Math A et Math B, année par année.",
   };
 
   mainRoot.innerHTML = `
@@ -232,6 +235,8 @@ function renderRoute(currentRoute) {
       return renderResultsPage();
     case "ressources":
       return renderResourcesPage();
+    case "retours-x":
+      return renderPolytechniqueJuryFeedbackPage();
     default:
       return renderDashboardPage();
   }
@@ -1314,6 +1319,94 @@ function renderResourcesPage() {
         </div>
       </article>
     </section>
+  `;
+}
+
+function renderPolytechniqueJuryFeedbackPage() {
+  return `
+    <section class="resource-stack">
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Lecture transversale</p>
+            <h2>Ce que répètent vraiment les rapports X</h2>
+          </div>
+          <a class="button primary" href="${POLYTECHNIQUE_X_JURY_FEEDBACK.sourceUrl}" target="_blank" rel="noreferrer">
+            Page officielle X
+          </a>
+        </div>
+        <p class="lead compact">${POLYTECHNIQUE_X_JURY_FEEDBACK.note}</p>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Lecture rapide</p>
+            <h2>Constantes du jury</h2>
+          </div>
+        </div>
+        <div class="resource-grid">
+          ${POLYTECHNIQUE_X_JURY_FEEDBACK.crossLessons
+            .map(
+              (item) => `
+                <article class="section-card">
+                  <h3>${item.title}</h3>
+                  <p>${item.body}</p>
+                </article>
+              `,
+            )
+            .join("")}
+        </div>
+      </article>
+
+      ${POLYTECHNIQUE_X_JURY_FEEDBACK.papers.map((paper) => renderPolytechniqueJuryPaper(paper)).join("")}
+    </section>
+  `;
+}
+
+function renderPolytechniqueJuryPaper(paper) {
+  return `
+    <article class="panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Écrit ${paper.label}</p>
+          <h2>${paper.label} · fil conducteur du jury</h2>
+        </div>
+      </div>
+      <div class="content-grid jury-content-grid">
+        <section class="span-5 section-card">
+          <h3>Ce que l'épreuve teste</h3>
+          <p>${paper.summary}</p>
+          <ul class="plain-list">
+            ${paper.recurring.map((item) => `<li>${item}</li>`).join("")}
+          </ul>
+        </section>
+        <section class="span-7">
+          <div class="jury-year-grid">
+            ${paper.years.map((year) => renderPolytechniqueJuryYear(year)).join("")}
+          </div>
+        </section>
+      </div>
+    </article>
+  `;
+}
+
+function renderPolytechniqueJuryYear(year) {
+  return `
+    <article class="section-card jury-year-card">
+      <div class="jury-meta">
+        <strong>${year.year}</strong>
+        <span class="pill copper">${year.filieres}</span>
+      </div>
+      <p class="jury-theme">${year.theme}</p>
+      <p class="jury-stats">${year.stats}</p>
+      <ul class="plain-list">
+        ${year.lessons.map((item) => `<li>${item}</li>`).join("")}
+      </ul>
+      <a class="button secondary" href="${year.href}" target="_blank" rel="noreferrer">
+        Ouvrir le rapport ${year.year}
+      </a>
+    </article>
   `;
 }
 
