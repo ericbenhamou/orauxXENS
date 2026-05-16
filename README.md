@@ -4,7 +4,7 @@ Site statique de préparation aux oraux X/ENS, en français, pensé pour GitHub 
 
 ## Ce que contient le site
 
-- Deux comptes dédiés : `Raphael` et `Heni`
+- Deux comptes dédiés : `Raphael` et `Henri`
 - Un tableau de bord de progression
 - Une zone de cours structurée à partir des thèmes Francinou et des rapports ENS
 - Un glossaire orienté oral
