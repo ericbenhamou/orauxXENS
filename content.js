@@ -1389,6 +1389,261 @@ export const EXERCISES = [
   },
 ];
 
+export const POLYTECHNIQUE_MP_REPORTS_PAGE_URL =
+  "https://www.polytechnique.edu/admission-cycle-ingenieur/sujets-et-rapports";
+
+export const POLYTECHNIQUE_MP_REPORT_SECTIONS = [
+  {
+    id: "x-mp-ecrits",
+    label: "Ecrits MP",
+    title: "Rapports officiels X - epreuves ecrites MP",
+    note:
+      "Source officielle Ecole polytechnique. Page consultee le 16 mai 2026 : les sujets ecrits 2026 sont publies, mais les rapports 2026 ne sont pas encore lies sur la page officielle.",
+    years: ["2026", "2025", "2024", "2023", "2022"],
+    rows: [
+      {
+        subject: "Maths A",
+        reports: {
+          2026: null,
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP%20et%20MPI_Maths%20A%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP-MPI%20RAPPORT%20ECRIT%20MATHEMATIQUES%20A%20(XLSR).pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP-MPI%20RAPPORT%20ECRIT%20MATHEMATIQUES%20A%20(XLSR).pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP%20RAPPORT%20ECRIT%20MATHS%20A%20(XLSR).pdf",
+        },
+      },
+      {
+        subject: "Maths B",
+        reports: {
+          2026: null,
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP_Maths%20B%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%2C%20MPI%20RAPPORT%20ECRIT%20DE%20MATHS%20B%20(X).pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP-MPI%20RAPPORT%20ECRIT%20MATHEMATIQUES%20B%20(X).pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP%20RAPPORT%20ECRIT%20MATHS%20B%20(X).pdf",
+        },
+      },
+      {
+        subject: "Physique MP",
+        reports: {
+          2026: null,
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP_Physique%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%20RAPPORT%20ECRIT%20PHYSIQUE%20(XULSR)_0.pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP%20RAPPORT%20ECRIT%20PHYSIQUE%20(XULSR)_0.pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP%20RAPPORT%20ECRIT%20PHYSIQUE%20(XULSR)_0.pdf",
+        },
+      },
+      {
+        subject: "Physique et SI",
+        reports: {
+          2026: null,
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP_Physique%20et%20SI%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%20RAPPORT%20ECRIT%20PHYSIQUE%20ET%20S.I.%20(X).pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP%20RAPPORT%20ECRIT%20PHYSIQUE%20ET%20S.I.%20(X).pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP%20RAPPORT%20ECRIT%20PHYSIQUE%20ET%20SCIENCES%20DE%20L'INGENIEUR%20(X).pdf",
+        },
+      },
+      {
+        subject: "Informatique A",
+        reports: {
+          2026: null,
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP%20et%20MPI_Info%20A%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%20RAPPORT%20ECRIT%20INFORMATIQUE%20A%20(XULSR).pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP-MPI%20RAPPORT%20ECRIT%20INFORMATIQUE%20A%20(XULSR)_0.pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP%20RAPPORT%20ECRIT%20INFORMATIQUE%20A%20(XULSR)_0.pdf",
+        },
+      },
+      {
+        subject: "Informatique B",
+        reports: {
+          2026: null,
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP%20et%20PC_info%20B%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%20RAPPORT%20ECRIT%20INFORMATIQUE%20B%20(XLSR)_0.pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP%20RAPPORT%20ECRIT%20INFORMATIQUE%20B%202h%20(XLSR)_0.pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20RAPPORT%20ECRIT%20INFORMATIQUE%20B%20-2h%20(XLSR)_0.pdf",
+        },
+      },
+      {
+        subject: "Francais",
+        reports: {
+          2026: null,
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP%2C%20MPI%20et%20PC_fran%C3%A7ais%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%2C%20MPI%2C%20PC%20RAPPORT%20ECRIT%20DE%20FRANCAIS%20(XEULSR).pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP-MPI-PC-PSI%20RAPPORT%20ECRIT%20FRANCAIS.pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP-PC-PSI%20RAPPORT%20ECRIT%20FRANCAIS%20(XEULSR).pdf",
+        },
+      },
+      {
+        subject: "Anglais",
+        reports: {
+          2026: null,
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP%2C%20MPI%2C%20PC%20et%20PSI_anglais%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP-MPI-PC%20RAPPORT%20ECRIT%20ANGLAIS%20(XEULSR).pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP-MPI-PC-PSI%20RAPPORT%20ECRIT%20ANGLAIS%20(XEULSR).pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP-PC%20RAPPORT%20ECRIT%20ANGLAIS%20(XEULSR).pdf",
+        },
+      },
+      {
+        subject: "Allemand",
+        reports: {
+          2026: null,
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP%2C%20MPI%2C%20PC%20et%20PSI_allemand%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP-MPI-PC%20RAPPORT%20ECRIT%20ALLEMAND%20(XEULSR).pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP-MPI-PC%20RAPPORT%20ECRIT%20ALLEMAND%20(XEULSR)_0.pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP-PC%20RAPPORT%20ECRIT%20ALLEMAND%20(XEULSR)_0.pdf",
+        },
+      },
+      {
+        subject: "Arabe",
+        reports: {
+          2026: null,
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP%2C%20MPI%2C%20PC%20et%20PSI_arabe%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP-MPI-PC%20RAPPORT%20ECRIT%20ARABE%20(XEULSR).pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP-MPI-PC%20RAPPORT%20ECRIT%20ARABE%20(XEULSR).pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP-PC%20RAPPORT%20ECRIT%20ARABE%20(XEULSR).pdf",
+        },
+      },
+      {
+        subject: "Espagnol",
+        reports: {
+          2026: null,
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Ecrits_MP%2C%20MPI%20et%20PC_espagnol%20OK_0.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP-MPI-PC%20RAPPORT%20ECRIT%20ESPAGNOL%20(XEULSR).pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP-PC%20RAPPORT%20ECRIT%20ESPAGNOL%20(XEULSR).pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP-PC%20RAPPORT%20ECRIT%20ESPAGNOL%20(XEULSR).pdf",
+        },
+      },
+    ],
+  },
+  {
+    id: "x-mp-oraux",
+    label: "Oraux MP",
+    title: "Rapports officiels X - epreuves orales MP",
+    note:
+      "Rapports oraux officiels pour la filiere MP. Le lien ADS Physique 2022 est conserve tel qu'il apparait sur la page officielle Polytechnique, meme si le nom du PDF mentionne 'PC'.",
+    years: ["2025", "2024", "2023", "2022", "2021"],
+    rows: [
+      {
+        subject: "Maths",
+        reports: {
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Oral_MP_Maths%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%20RAPPORT%20ORAL%20DE%20MATHEMATIQUES%201%20ET%202.pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP%20RAPPORT%20ORAL%20MATHEMATIQUES%201%20ET%202.pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP%20RAPPORT%20ORAL%20MATHEMATIQUES%201%20ET%202.pdf",
+          2021:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2021%20MP%20RAPPORT%20ORAL%20MATHEMATIQUES%201%20ET%202.pdf",
+        },
+      },
+      {
+        subject: "Physique",
+        reports: {
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Oral_MP_%20Phys%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%20RAPPORT%20ORAL%20DE%20PHYSIQUE.pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP%20RAPPORT%20ORAL%20PHYSIQUE.pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP%20RAPPORT%20ORAL%20PHYSIQUE.pdf",
+          2021:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2021%20MP%20RAPPORT%20ORAL%20PHYSIQUE.pdf",
+        },
+      },
+      {
+        subject: "Chimie",
+        reports: {
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Oral_MP_Chimie%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%20RAPPORT%20ORAL%20DE%20CHIMIE.pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP%20RAPPORT%20ORAL%20CHIMIE.pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP%20RAPPORT%20ORAL%20DE%20CHIMIE.pdf",
+          2021:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2021%20MP%20RAPPORT%20ORAL%20CHIMIE.pdf",
+        },
+      },
+      {
+        subject: "ADS Maths",
+        reports: {
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Oral_MP_ADS%20Maths%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%20RAPPORT%20ADS%20DE%20MATHEMATIQUES_0.pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP%20RAPPORT%20ADS%20MATHEMATIQUES.pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20MP%20RAPPORT%20ADS%20MATHEMATIQUES.pdf",
+          2021:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2021%20MP%20RAPPORT%20ADS%20MATHEMATIQUES.pdf",
+        },
+      },
+      {
+        subject: "ADS Physique",
+        reports: {
+          2025:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/Oral_MP_ADS%20Phys%20OK.pdf",
+          2024:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2024%20MP%20RAPPORT%20ORAL%20ADS%20PHYSIQUE.pdf",
+          2023:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2023%20MP%20RAPPORT%20ADS%20PHYSIQUE.pdf",
+          2022:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2022%20PC%20RAPPORT%20ADS%20DE%20PHYSIQUE_0.pdf",
+          2021:
+            "https://www.polytechnique.edu/admission-cycle-ingenieur/sites/admission/files/content/2021%20MP%20RAPPORT%20ADS%20PHYSIQUE.pdf",
+        },
+      },
+    ],
+  },
+];
+
 export const RESOURCE_LINKS = [
   {
     label: "Rapports et sujets 2025 MP – ENS",

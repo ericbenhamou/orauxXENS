@@ -5,6 +5,8 @@ import {
   GLOSSARY,
   JURY_ALERTS,
   NAV_ITEMS,
+  POLYTECHNIQUE_MP_REPORT_SECTIONS,
+  POLYTECHNIQUE_MP_REPORTS_PAGE_URL,
   PROFILES,
   QCM_QUESTIONS,
   RESOURCE_LINKS,
@@ -192,7 +194,7 @@ function renderMain() {
     oraux: "Corpus d'exercices classiques, filtrable et annotable.",
     memoire: "Ce qu'il ne faut plus rater deux fois.",
     resultats: "Suivi des progrès, comparaison Raphael / Henry et points faibles.",
-    ressources: "Rapports, sujets et ancrage Francinou.",
+    ressources: "Rapports officiels X/MP, ENS et ancrage Francinou.",
   };
 
   mainRoot.innerHTML = `
@@ -202,13 +204,32 @@ function renderMain() {
         <h1>${titleMap[currentRoute]}</h1>
         <p class="lead">${introMap[currentRoute]}</p>
       </div>
-      <div class="topbar-actions">
-        <button class="button secondary" data-action="go-route" data-route="resultats" type="button">
-          Voir les résultats
-        </button>
-        <button class="button primary" data-action="go-route" data-route="oraux" type="button">
-          Lancer un oral blanc
-        </button>
+      <div class="topbar-side">
+        <div class="profile-switcher-wrap">
+          <span class="toolbar-label">Utilisateur</span>
+          <div class="profile-switcher" role="group" aria-label="Changer d'utilisateur">
+            ${PROFILES.map(
+              (item) => `
+                <button
+                  class="toggle-button ${item.id === state.selectedProfileId ? "active" : ""}"
+                  data-action="select-profile"
+                  data-profile-id="${item.id}"
+                  type="button"
+                >
+                  ${item.name}
+                </button>
+              `,
+            ).join("")}
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button class="button secondary" data-action="go-route" data-route="resultats" type="button">
+            Voir les résultats
+          </button>
+          <button class="button primary" data-action="go-route" data-route="oraux" type="button">
+            Lancer un oral blanc
+          </button>
+        </div>
       </div>
     </header>
     ${renderRoute(currentRoute)}
@@ -1268,34 +1289,105 @@ function renderResultsPage() {
 
 function renderResourcesPage() {
   return `
-    <section class="panel">
+    <section class="resource-stack">
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Polytechnique</p>
+            <h2>Rapports officiels de l'X - filière MP</h2>
+          </div>
+          <a class="button primary" href="${POLYTECHNIQUE_MP_REPORTS_PAGE_URL}" target="_blank" rel="noreferrer">
+            Page officielle X
+          </a>
+        </div>
+        <p class="lead compact">
+          Tous les liens ci-dessous proviennent de la page officielle « Sujets et rapports » de l'École polytechnique pour la filière MP. Ils sont structurés par type d'épreuve, matière et année pour servir de base de travail immédiate.
+        </p>
+      </article>
+
+      ${POLYTECHNIQUE_MP_REPORT_SECTIONS.map((section) => renderPolytechniqueReportSection(section)).join("")}
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">ENS et livres</p>
+            <h2>Autres ressources mobilisées</h2>
+          </div>
+        </div>
+        <p class="lead compact">
+          Le site privilégie des formulations originales et des parcours de travail, mais s'appuie aussi sur des rapports officiels ENS et sur la collection Francinou pour choisir les thèmes et les exercices les plus structurants.
+        </p>
+        <div class="resource-grid">
+          ${RESOURCE_LINKS.map((resource) =>
+            resource.href
+              ? `
+                <a class="resource-card" href="${resource.href}" target="_blank" rel="noreferrer">
+                  <strong>${resource.label}</strong>
+                  <span>${resource.note}</span>
+                </a>
+              `
+              : `
+                <div class="resource-card static">
+                  <strong>${resource.label}</strong>
+                  <span>${resource.note}</span>
+                </div>
+              `,
+          ).join("")}
+        </div>
+      </article>
+    </section>
+  `;
+}
+
+function renderPolytechniqueReportSection(section) {
+  return `
+    <article class="panel">
       <div class="panel-heading">
         <div>
-          <p class="eyebrow">Sources et ancrage</p>
-          <h2>Ressources mobilisées</h2>
+          <p class="eyebrow">${section.label}</p>
+          <h2>${section.title}</h2>
         </div>
       </div>
-      <p class="lead compact">
-        Le site privilégie des formulations originales et des parcours de travail, mais s'appuie sur des rapports officiels ENS et sur la collection Francinou pour choisir les thèmes et les exercices les plus structurants.
-      </p>
-      <div class="resource-grid">
-        ${RESOURCE_LINKS.map((resource) =>
-          resource.href
-            ? `
-              <a class="resource-card" href="${resource.href}" target="_blank" rel="noreferrer">
-                <strong>${resource.label}</strong>
-                <span>${resource.note}</span>
-              </a>
-            `
-            : `
-              <div class="resource-card static">
-                <strong>${resource.label}</strong>
-                <span>${resource.note}</span>
-              </div>
-            `,
-        ).join("")}
+      <p class="section-note">${section.note}</p>
+      <div class="report-table-wrap">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Matière</th>
+              ${section.years.map((year) => `<th>${year}</th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>
+            ${section.rows
+              .map(
+                (row) => `
+                  <tr>
+                    <th scope="row">${row.subject}</th>
+                    ${section.years
+                      .map((year) => renderReportCell(row.reports[year], year))
+                      .join("")}
+                  </tr>
+                `,
+              )
+              .join("")}
+          </tbody>
+        </table>
       </div>
-    </section>
+    </article>
+  `;
+}
+
+function renderReportCell(href, year) {
+  if (!href) {
+    return `<td><span class="report-missing">Non publié</span></td>`;
+  }
+
+  return `
+    <td>
+      <a class="report-link" href="${href}" target="_blank" rel="noreferrer">
+        PDF ${year}
+      </a>
+    </td>
   `;
 }
 
