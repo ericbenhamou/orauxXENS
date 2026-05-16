@@ -756,6 +756,16 @@ button {
   background: #fff6f5;
 }
 
+.correction-card {
+  border-color: #c9dcff;
+  background: #f7fbff;
+}
+
+.correction-note {
+  color: var(--accent-strong);
+  font-size: 0.95rem;
+}
+
 .callout {
   margin-bottom: 16px;
   color: var(--warning);

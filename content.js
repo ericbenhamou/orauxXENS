@@ -1392,6 +1392,200 @@ export const EXERCISES = [
   },
 ];
 
+export const EXERCISE_CORRECTIONS = {
+  "newton-traces": {
+    idea:
+      "Passer dans un corps de décomposition, écrire le polynôme caractéristique à l'aide des valeurs propres, puis comparer une identité obtenue par dérivation logarithmique.",
+    steps: [
+      latex`Poser \(p_k=\operatorname{tr}(A^k)=\sum_i \lambda_i^k\) et \(\chi_A(X)=X^n-e_1X^{n-1}+\cdots+(-1)^n e_n\), où \(e_k\) est le \(k\)-ième polynôme symétrique élémentaire des \(\lambda_i\).`,
+      latex`Écrire \(\dfrac{\chi_A'(X)}{\chi_A(X)}=\sum_i \dfrac{1}{X-\lambda_i}\), puis \(\chi_A'(X)=\chi_A(X)\sum_i \dfrac{1}{X-\lambda_i}\).`,
+      latex`Comparer les coefficients de \(X^{n-k}\) dans cette identité pour obtenir \(k e_k=\sum_{j=1}^k (-1)^{j-1} e_{k-j}p_j\), avec \(e_0=1\).`,
+      "La relation est triangulaire, donc les traces successives permettent de reconstruire récursivement les coefficients du polynôme caractéristique.",
+    ],
+    takeaway:
+      latex`Les formules de Newton matricielles sont \(k e_k=\sum_{j=1}^k (-1)^{j-1}e_{k-j}\operatorname{tr}(A^j)\).`,
+  },
+  "discontinuite-denombrable": {
+    idea:
+      "Mesurer chaque discontinuité par l'écart entre la valeur de la fonction et la limite, puis montrer que pour une taille de saut fixée on obtient un ensemble discret, donc au plus dénombrable.",
+    steps: [
+      latex`Pour chaque \(a\), poser \(\ell(a)=\lim_{x\to a} f(x)\) et \(\delta(a)=|f(a)-\ell(a)|\). Les points de discontinuité sont exactement ceux pour lesquels \(\delta(a)>0\).`,
+      latex`Pour \(n\ge1\), considérer \(D_n=\{a:\delta(a)\ge 1/n\}\). Si \(a\in D_n\), choisir un voisinage \(U_a\) tel que \(|f(x)-\ell(a)|<1/(4n)\) pour tout \(x\in U_a\setminus\{a\}\).`,
+      latex`Si \(a,b\in D_n\) sont trop proches, on peut choisir \(x\in U_a\cap U_b\setminus\{a,b\}\). Alors \(|\ell(a)-\ell(b)|<1/(2n)\), tandis que \(|f(b)-\ell(a)|<1/(4n)\), d'où \(|f(b)-\ell(b)|<3/(4n)\), contradiction.`,
+      latex`Donc \(D_n\) est discret. Sur chaque compact \([-m,m]\), un ensemble discret est fini ; ainsi \(D_n\) est dénombrable, puis \(\bigcup_n D_n\) l'est aussi.`,
+    ],
+    takeaway:
+      "La bonne variable n'est pas l'intuition de “saut”, mais la quantité δ(a), qui permet de découper les discontinuités en paquets discrets.",
+  },
+  "limite-derivees-bornees": {
+    idea:
+      "Utiliser l'inégalité des accroissements finis sur chaque fonction de la suite, puis passer à la limite dans l'encadrement.",
+    steps: [
+      latex`Pour tous \(x,y\) et tout \(n\), l'inégalité des accroissements finis donne \(|f_n(x)-f_n(y)|\le \|f_n'\|_\infty |x-y|\le |x-y|\).`,
+      latex`Faire tendre \(n\) vers l'infini en gardant \(x\) et \(y\) fixés : comme \(f_n(x)\to g(x)\) et \(f_n(y)\to g(y)\), on obtient \(|g(x)-g(y)|\le |x-y|\).`,
+      "La fonction limite est donc 1-lipschitzienne, donc continue sur R.",
+    ],
+    takeaway:
+      "Dès qu'une hypothèse donne un contrôle uniforme des accroissements, la limite simple hérite souvent d'une régularité forte.",
+  },
+  "zeros-derives-positives": {
+    idea:
+      "Une route propre consiste à exploiter d'abord la monotonie, puis à invoquer l'analyticité des fonctions absolument monotones pour conclure qu'un intervalle de zéros force la nullité identique.",
+    steps: [
+      latex`Comme \(f'\ge0\), la fonction \(f\) est croissante. Si \(f(a)=f(b)=0\) avec \(a<b\), alors pour tout \(x\in[a,b]\), \(0=f(a)\le f(x)\le f(b)=0\), donc \(f\) est nulle sur \([a,b]\).`,
+      "Sur un intervalle où f est nulle, toutes les dérivées sont nulles en tout point intérieur.",
+      "Or une fonction C∞ dont toutes les dérivées sont positives est absolument monotone ; un résultat classique donne alors qu'elle est analytique à l'intérieur de l'intervalle.",
+      "Une fonction analytique qui s'annule sur un intervalle ouvert est identiquement nulle. Cela contredit l'hypothèse “non constante”. Donc f ne peut avoir au plus qu'un zéro.",
+    ],
+    takeaway:
+      "Le cœur du problème est : positivité de toutes les dérivées ⇒ rigidité analytique, donc pas de “plateau nul” pour une fonction non constante.",
+  },
+  "projecteur-moyenne": {
+    idea:
+      "Choisir la décomposition adaptée dès le départ. Une fois l'espace scindé par le projecteur, l'opérateur H devient diagonal par blocs sur L(E).",
+    steps: [
+      latex`Écrire \(E=\operatorname{Im}(p)\oplus \operatorname{Ker}(p)\). Dans cette décomposition, \(p=\begin{pmatrix}I&0\\0&0\end{pmatrix}\).`,
+      latex`Tout endomorphisme \(u\) s'écrit alors \(u=\begin{pmatrix}a&b\\ c&d\end{pmatrix}\). Un calcul direct donne \(H(u)=\dfrac12(up+pu)=\begin{pmatrix}a&b/2\\ c/2&0\end{pmatrix}\).`,
+      latex`Le sous-espace des blocs \(a\) est donc propre pour la valeur propre \(1\), ceux des blocs \(b\) et \(c\) pour la valeur propre \(1/2\), et celui du bloc \(d\) pour la valeur propre \(0\).`,
+      "On obtient une décomposition de L(E) en somme directe de trois sous-espaces propres. H est donc diagonalisable.",
+    ],
+    takeaway:
+      latex`Les valeurs propres sont \(0\), \(1/2\) et \(1\), l'exercice étant en réalité une lecture par blocs de \(L(E)\).`,
+  },
+  "monotone-sur-droites": {
+    idea:
+      "Le problème est géométrique : la monotonie sur toute droite rigidifie les ensembles de niveau jusqu'à forcer une structure “une seule direction utile”.",
+    steps: [
+      "Pour chaque réel c, les sous-niveaux {f ≤ c} rencontrent toute droite suivant un intervalle ; ils sont donc convexes, et les niveaux ont une géométrie très contrainte.",
+      "Si deux niveaux distincts n'étaient pas contenus dans des hyperplans parallèles, on construirait une droite le long de laquelle la restriction de f devrait monter puis redescendre, impossible pour une fonction monotone.",
+      latex`On en déduit l'existence d'une forme linéaire non nulle \(\varphi\) telle que chaque niveau de \(f\) soit contenu dans un hyperplan de la forme \(\{\varphi=\alpha\}\).`,
+      latex`Définir alors \(h(\alpha)=f(x)\) pour n'importe quel \(x\) tel que \(\varphi(x)=\alpha\). La définition est cohérente et \(f=h\circ\varphi\). La monotonie de \(h\) se lit sur une droite transverse à \(\ker \varphi\).`,
+    ],
+    takeaway:
+      "La correction utile à l'oral est une correction de structure : tous les niveaux deviennent parallèles, donc la fonction n'a qu'une dimension effective.",
+  },
+  "piece-double-face": {
+    idea:
+      "Transformer le comptage en marche aléatoire à deux pas possibles, puis calculer une probabilité d'atteinte par récurrence harmonique.",
+    steps: [
+      latex`Poser \(S_n=P_n-2F_n\), où \(P_n\) est le nombre de piles et \(F_n\) celui de faces. On s'arrête exactement quand \(S_n=0\).`,
+      latex`Si \(u_k=\mathbb P_k(\tau_0<\infty)\), alors \(u_0=1\) et \(u_k=\dfrac12 u_{k+1}+\dfrac12 u_{k-2}\). La résolution de l'équation caractéristique fait apparaître \(q=\dfrac{\sqrt5-1}{2}\).`,
+      latex`La branche bornée pertinente donne \(u_{-2}=q^2\) et \(u_1=1-q^3\). Depuis l'origine, après un lancer on est en \(1\) ou en \(-2\) avec probabilité \(1/2\).`,
+      latex`Ainsi \(\mathbb P(\tau_0<\infty)=\dfrac12(u_1+u_{-2})=\dfrac{1+q^4}{2}\), donc la probabilité de ne jamais s'arrêter vaut \(\dfrac{1-q^4}{2}\).`,
+    ],
+    takeaway:
+      latex`La réponse est \(\mathbb P(\text{ne jamais s'arrêter})=\dfrac{3\sqrt5-5}{4}\).`,
+  },
+  "attente-motif-piece": {
+    idea:
+      "Le motif ne demande que trois états : rien d'utile, une suite impaire de piles en cours, ou une suite paire non vide de piles en cours.",
+    steps: [
+      "Noter A l'espérance en état neutre, B l'espérance après un bloc impair de piles, C l'espérance après un bloc pair non vide de piles.",
+      latex`Les transitions donnent \(A=1+\frac12A+\frac12B\), \(B=1+\frac12C\) et \(C=1+\frac12A+\frac12B\).`,
+      latex`La première équation donne \(A=2+B\). En remplaçant dans la troisième, on obtient \(C=2+B\), puis dans la deuxième \(B=1+\frac12(2+B)\), donc \(B=4\).`,
+      latex`Finalement \(A=2+B=6\). C'est l'espérance cherchée, puisque l'on part de l'état neutre.`,
+    ],
+    takeaway:
+      "L'état minimal bien choisi transforme l'exercice en un système de trois équations linéaires très court.",
+  },
+  "groupes-sous-groupes": {
+    idea:
+      "Traiter séparément les deux sens, puis distinguer dans le sens réciproque le cas où le groupe possède un élément d'ordre infini et le cas de torsion.",
+    steps: [
+      "Si G est fini, il n'a évidemment qu'un nombre fini de sous-groupes.",
+      latex`Réciproquement, si \(G\) contient un élément \(g\) d'ordre infini, alors les sous-groupes \(\langle g^n\rangle\) sont deux à deux distincts : on en obtient une infinité.`,
+      latex`Si tous les éléments sont d'ordre fini, alors chaque sous-groupe cyclique \(\langle g\rangle\) est fini. Avec un nombre fini de sous-groupes au total, \(G\) est réunion d'un nombre fini de sous-groupes finis.`,
+      "Une réunion finie d'ensembles finis étant finie, G est alors fini.",
+    ],
+    takeaway:
+      "La bonne dichotomie est : soit un élément d'ordre infini fabrique infiniment de sous-groupes, soit tout est torsion et la finitude tombe par réunion finie.",
+  },
+  "presque-morphisme": {
+    idea:
+      "Prouver le résultat par contraposée : si f n'est pas uniformément bornée, alors l'erreur additive δ devient négligeable devant certaines valeurs, et la multiplicativité exacte se force.",
+    steps: [
+      latex`Supposer \(f\) non bornée. Choisir une suite \(y_n\) telle que \(|f(y_n)|\to\infty\). L'inégalité \(|f(xy_n)-f(x)f(y_n)|\le\delta\) donne alors \(\dfrac{f(xy_n)}{f(y_n)}\to f(x)\) pour tout \(x\).`,
+      latex`De même, \(|f(zy_n)-f(z)f(y_n)|\le\delta\) implique \(\dfrac{f(zy_n)}{f(y_n)}\to f(z)\).`,
+      latex`Appliquer maintenant l'hypothèse à \(xzy_n\) de deux façons : \(|f(xzy_n)-f(x)f(zy_n)|\le\delta\) et \(|f(xzy_n)-f(xz)f(y_n)|\le\delta\).`,
+      latex`En divisant par \(f(y_n)\) puis en faisant tendre \(n\) vers l'infini, on obtient \(f(xz)=f(x)f(z)\) pour tous \(x,z\). Donc \(f\) est exactement multiplicative.`,
+    ],
+    takeaway:
+      "Soit l'erreur relative reste contrôlée parce que f est bornée, soit les très grandes valeurs de f obligent la multiplicativité exacte.",
+  },
+  "rang-idempotents": {
+    idea:
+      "Écrire la différence I − produit comme une somme télescopique, puis majorer son rang terme à terme.",
+    steps: [
+      latex`Écrire \(I-A_1\cdots A_k=(I-A_1)+A_1(I-A_2)+A_1A_2(I-A_3)+\cdots+A_1\cdots A_{k-1}(I-A_k)\).`,
+      latex`Le rang d'une somme est au plus la somme des rangs, et \(\operatorname{rg}(MN)\le \operatorname{rg}(N)\).`,
+      latex`Donc \(\operatorname{rg}(I-A_1\cdots A_k)\le \sum_{j=1}^k \operatorname{rg}(I-A_j)\).`,
+      latex`Or \(A_j^2=A_j\) implique \(E=\operatorname{Im}(A_j)\oplus \operatorname{Ker}(A_j)\), donc \(\operatorname{rg}(I-A_j)=\dim\operatorname{Ker}(A_j)=n-\operatorname{rg}(A_j)\).`,
+    ],
+    takeaway:
+      latex`La majoration cherchée est donc \(\operatorname{rg}(I-A_1\cdots A_k)\le \sum_{j=1}^k (n-\operatorname{rg}(A_j))\).`,
+  },
+  "newton-local": {
+    idea:
+      "Regarder l'itération de Newton comme une application N et montrer que l'erreur se comporte quadratiquement au voisinage d'une racine simple.",
+    steps: [
+      latex`Poser \(N(x)=x-\dfrac{f(x)}{f'(x)}\). Comme \(f'(x^*)\neq0\), la fonction \(N\) est bien définie sur un voisinage de \(x^*\).`,
+      latex`Un développement de Taylor donne \(f(x)=f'(x^*)(x-x^*)+O((x-x^*)^2)\) et \(f'(x)=f'(x^*)+O(x-x^*)\).`,
+      latex`En remplaçant dans la formule de \(N\), on obtient \(N(x)-x^*=O((x-x^*)^2)\). Donc il existe \(C\) et un voisinage \(V\) tels que \(|N(x)-x^*|\le C|x-x^*|^2\) pour \(x\in V\).`,
+      latex`Si \(V\) est assez petit pour que \(C|x-x^*|\le 1/2\), alors \(N(V)\subset V\) et \(|x_{k+1}-x^*|\le \frac12 |x_k-x^*|\), même mieux : l'erreur décroît quadratiquement.`,
+    ],
+    takeaway:
+      "Près d'une racine simple, Newton n'est pas seulement convergent : l'erreur est de l'ordre du carré de l'erreur précédente.",
+  },
+  "variation-constante": {
+    idea:
+      "Isoler le terme forcé g(t)=f''+f'+f, puis utiliser la décroissance exponentielle de l'équation homogène et une formule de convolution.",
+    steps: [
+      latex`Poser \(g(t)=f''(t)+f'(t)+f(t)\), de sorte que \(g(t)\to0\).`,
+      latex`L'équation homogène \(y''+y'+y=0\) a pour racines \(\frac{-1\pm i\sqrt3}{2}\), donc toutes ses solutions décroissent exponentiellement vers \(0\).`,
+      latex`Par variation de la constante, on écrit \(f(t)=u(t)+\int_0^t K(t-s)g(s)\,ds\), où \(u(t)\to0\) et le noyau \(K\) est exponentiellement décroissant, donc intégrable.`,
+      latex`Couper l'intégrale en \([0,T]\cup[T,t]\). Sur \([0,T]\), \(K(t-s)\to0\) quand \(t\to\infty\). Sur \([T,t]\), \(g\) est uniformément petit puisque \(g(s)\to0\). Les deux morceaux tendent donc vers \(0\).`,
+    ],
+    takeaway:
+      "Une fois la structure linéaire reconnue, tout repose sur la stabilité de l'homogène et sur l'intégrabilité du noyau de Green.",
+  },
+  "projecteurs-commutent": {
+    idea:
+      "La bonne condition n'est pas une condition matricielle opaque, mais une condition de stabilité mutuelle des sous-espaces projetés.",
+    steps: [
+      latex`Noter \(p=p_F\) et \(q=p_G\) les projections orthogonales sur \(F\) et \(G\). Si \(pq=qp\), alors \(q\) stabilise \(\operatorname{Im}(p)=F\) et \(\operatorname{Ker}(p)=F^\perp\). Symétriquement, \(p\) stabilise \(G\) et \(G^\perp\).`,
+      latex`Cela force la décomposition orthogonale \(E=(F\cap G)\oplus(F\cap G^\perp)\oplus(F^\perp\cap G)\oplus(F^\perp\cap G^\perp)\).`,
+      latex`Dans une base orthonormée adaptée à cette décomposition, \(p\) et \(q\) sont diagonales par blocs, donc commutent.`,
+      latex`Réciproquement, si \(F\) et \(G\) sont stables l'un par la projection de l'autre, la même décomposition existe, et \(pq=qp\). Dans ce cas, \(pq\) est la projection orthogonale sur \(F\cap G\).`,
+    ],
+    takeaway:
+      "Deux projecteurs orthogonaux commutent exactement quand les deux sous-espaces sont compatibles au sens de la stabilité mutuelle.",
+  },
+  "somme-carres": {
+    idea:
+      "Lire l'exercice comme un problème de formule de composition des normes : quand peut-on écrire le produit de deux sommes de n carrés comme une nouvelle somme de n carrés ?",
+    steps: [
+      latex`Le cas \(n=1\) est trivial. Le cas \(n=2\) vient de l'identité de Brahmagupta-Fibonacci : \((a^2+b^2)(c^2+d^2)=(ac-bd)^2+(ad+bc)^2\).`,
+      latex`Les cas \(n=4\) et \(n=8\) s'obtiennent de la même manière via les normes des quaternions et des octonions.`,
+      "À partir d'une formule de composition pour n carrés et de celle pour 2 carrés, on peut tensoriser et obtenir une formule pour 2n carrés. C'est ce mécanisme de “doublage” qui fait apparaître les puissances de 2.",
+      "Le théorème de Hurwitz explique enfin la rigidité du phénomène : les dimensions 1, 2, 4 et 8 sont les seules dimensions vraiment nouvelles pour des normes multiplicatives de ce type.",
+    ],
+    takeaway:
+      "Le rôle des puissances de 2 vient du procédé de doublage des formules de composition, tandis que 1, 2, 4 et 8 sont les cas structurellement fondamentaux.",
+  },
+  "suite-tail-heavy": {
+    idea:
+      "Choisir bn comme quantile discret naturel de la queue, puis écrire les probabilités du maximum à l'aide de l'indépendance.",
+    steps: [
+      latex`Poser \(\overline F(x)=\mathbb P(X\ge x)\) et \(M_n=\max(X_1,\ldots,X_n)\). Choisir \(b_n\) de sorte que \(n\overline F(b_n)\approx1\).`,
+      latex`Par indépendance, \(\mathbb P(M_n<t)=(1-\overline F(t))^n\).`,
+      latex`L'hypothèse \(\overline F(ax)/\overline F(x)\to0\) force, pour tout \(\varepsilon>0\), \(n\overline F((1+\varepsilon)b_n)\to0\) et \(n\overline F((1-\varepsilon)b_n)\to\infty\).`,
+      latex`On en déduit \(\mathbb P(M_n\ge(1+\varepsilon)b_n)\le n\overline F((1+\varepsilon)b_n)\to0\), tandis que \(\mathbb P(M_n\le(1-\varepsilon)b_n)=(1-\overline F((1-\varepsilon)b_n))^n\to0\). Donc \(M_n/b_n\to1\) en probabilité.`,
+    ],
+    takeaway:
+      "Le maximum se lit entièrement dans la queue de la loi : l'hypothèse “queue rare” fabrique un quantile bn autour duquel M_n se concentre.",
+  },
+};
+
 export const POLYTECHNIQUE_MP_REPORTS_PAGE_URL =
   "https://www.polytechnique.edu/admission-cycle-ingenieur/sujets-et-rapports";
 

@@ -1,6 +1,7 @@
 import {
   APP_META,
   COURSE_MODULES,
+  EXERCISE_CORRECTIONS,
   EXERCISES,
   GLOSSARY,
   JURY_ALERTS,
@@ -894,6 +895,7 @@ function renderOralsPage() {
 
   const noteDraft = profileData.noteDrafts[activeExercise.id] || "";
   const lastStatus = getLastStatusForExercise(state.selectedProfileId, activeExercise.id);
+  const correction = EXERCISE_CORRECTIONS[activeExercise.id];
   const linkedCourses = activeExercise.relatedCourseIds
     .map((courseId) => COURSE_MODULES.find((item) => item.id === courseId))
     .filter(Boolean);
@@ -988,6 +990,21 @@ function renderOralsPage() {
               ${activeExercise.expectedMoves.map((item) => `<li>${item}</li>`).join("")}
             </ul>
           </section>
+
+          ${
+            correction
+              ? `
+                <section class="section-card correction-card">
+                  <h3>Correction guidée</h3>
+                  <p>${correction.idea}</p>
+                  <ul class="plain-list">
+                    ${correction.steps.map((item) => `<li>${item}</li>`).join("")}
+                  </ul>
+                  <p class="correction-note"><strong>À retenir :</strong> ${correction.takeaway}</p>
+                </section>
+              `
+              : ""
+          }
 
           <section class="section-card warning">
             <h3>Erreurs à mémoriser</h3>
